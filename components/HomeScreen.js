@@ -40,9 +40,9 @@ class HomeScreen extends Component {
                   </TouchableOpacity>
                 </view>
                 <view style={styles.ticket}>
-                  <text style={styles.travelText}>Oslo til Bergen</text>
-                  <text style={styles.ticketText}>Platform 1</text>
-                  <text style={styles.ticketText}>Avreise kl.12.45</text>
+                  <text style={styles.travelText}>Oslo til Trondheim</text>
+                  <text style={styles.ticketText}>Platform 7</text>
+                  <text style={styles.ticketText}>Avreise kl.14.35</text>
                   <TouchableOpacity style={styles.ticketButton} title="Button">
                     <button
                       style={styles.button}
@@ -52,10 +52,10 @@ class HomeScreen extends Component {
                     />
                   </TouchableOpacity>
                 </view>
-                <view style="ticket">
-                  <text style="ticket-txt1">Oslo til Bergen</text>
-                  <text style="ticket-txt">Platform 1</text>
-                  <text style="ticket-txt">Avreise kl.12.45</text>
+                <view style={styles.ticket}>
+                  <text style={styles.travelText}>Oslo til Hamar</text>
+                  <text style={styles.ticketText}>Platform 3</text>
+                  <text style={styles.ticketText}>Avreise kl.10.15</text>
                   <TouchableOpacity style="ticket-button" title="Button">
                     <button
                       style={styles.button}
@@ -65,12 +65,11 @@ class HomeScreen extends Component {
                     />
                   </TouchableOpacity>
                 </view>
-                <view style="box"></view>
+                <view style={styles.box}></view>
               </ScrollView>
 
               <image
-                style="nav-bar"
-                style={{ width: 400, height: 81 }}
+                style={styles.navBar}
                 source={require("../assets/navbar.jpg")}
               />
             </view>
@@ -131,6 +130,8 @@ const styles = StyleSheet.create({
   navBar: {
     position: absolute,
     bottom: 0,
+    width: 400,
+    height: 81 
   },
   logo: {
     width: 70,
