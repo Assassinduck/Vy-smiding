@@ -1,89 +1,86 @@
-
-import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView } from "react-native";
+import React, { Component } from "react";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView,
+} from "react-native";
 
 class HomeScreen extends Component {
-    state = {}
-    
+  state = {};
 
-
-
-    render() {
-
-        return (
-
-            <view style={styles.container}>
-              <ScrollView>
-                <view style={styles.ticketHeader}>
-                  <image
-                    style={styles.logo}
-                    source={require("../assets/images/vy.logo.final_primary.png")}
-                  />
-                  <text style={styles.headerText}>
-                    Du vil finne dine reiser og billetter her.
-                  </text>
-                </view>
-                <view style={styles.head}>
-                  <text style={styles.ticketText}>Dine Billetter</text>
-                </view>
-                <view style={styles.ticket}>
-                  <text style={styles.travelText}>Oslo til Bergen</text>
-                  <text style={styles.ticketText}>Platform 1</text>
-                  <text style={styles.ticketText}>Avreise kl.12.45</text>
-                  <TouchableOpacity style={styles.ticketButton} title="Button">
-                    <button
-                      style={styles.button}
-                      title="Se informasjon om reisen"
-                      color="#00957a"
-                      onPress={goToInformation}
-                    />
-                  </TouchableOpacity>
-                </view>
-                <view style={styles.ticket}>
-                  <text style={styles.travelText}>Oslo til Trondheim</text>
-                  <text style={styles.ticketText}>Platform 7</text>
-                  <text style={styles.ticketText}>Avreise kl.14.35</text>
-                  <TouchableOpacity style={styles.ticketButton} title="Button">
-                    <button
-                      style={styles.button}
-                      title="Se informasjon om reisen"
-                      color="#00957a"
-                      onPress={goToInformation}
-                    />
-                  </TouchableOpacity>
-                </view>
-                <view style={styles.ticket}>
-                  <text style={styles.travelText}>Oslo til Hamar</text>
-                  <text style={styles.ticketText}>Platform 3</text>
-                  <text style={styles.ticketText}>Avreise kl.10.15</text>
-                  <TouchableOpacity style="ticket-button" title="Button">
-                    <button
-                      style={styles.button}
-                      title="Se informasjon om reisen"
-                      color="#00957a"
-                      onPress={goToInformation}
-                    />
-                  </TouchableOpacity>
-                </view>
-                <view style={styles.box}></view>
-              </ScrollView>
-
-              <image
-                style={styles.navBar}
-                source={require("../assets/images/navbar.jpg")}
+  render() {
+    return (
+      <view style={styles.container}>
+        <ScrollView>
+          <view style={styles.ticketHeader}>
+            <image
+              style={styles.logo}
+              source={require("../assets/images/vy.logo.final_primary.png")}
+            />
+            <text style={styles.headerText}>
+              Du vil finne dine reiser og billetter her.
+            </text>
+          </view>
+          <view style={styles.head}>
+            <text style={styles.ticketText}>Dine Billetter</text>
+          </view>
+          <view style={styles.ticket}>
+            <text style={styles.travelText}>Oslo til Bergen</text>
+            <text>Platform 1</text>
+            <text>Avreise kl.12.45</text>
+            <TouchableOpacity style={styles.ticketButton} title="Button">
+              <button
+                style={styles.button}
+                title="Se informasjon om reisen"
+                color="#00957a"
+                onPress={goToInformation}
               />
-            </view>
+            </TouchableOpacity>
+          </view>
+          <view style={styles.ticket}>
+            <text style={styles.travelText}>Oslo til Trondheim</text>
+            <text>Platform 7</text>
+            <text>Avreise kl.14.35</text>
+            <TouchableOpacity style={styles.ticketButton} title="Button">
+              <button
+                style={styles.button}
+                title="Se informasjon om reisen"
+                color="#00957a"
+                onPress={goToInformation}
+              />
+            </TouchableOpacity>
+          </view>
+          <view style={styles.ticket}>
+            <text style={styles.travelText}>Oslo til Hamar</text>
+            <text>Platform 3</text>
+            <text>Avreise kl.10.15</text>
+            <TouchableOpacity style="ticket-button" title="Button">
+              <button
+                style={styles.button}
+                title="Se informasjon om reisen"
+                color="#00957a"
+                onPress={goToInformation}
+              />
+            </TouchableOpacity>
+          </view>
+          <view style={styles.box}></view>
+        </ScrollView>
 
-        );
-    }
-    
+        <image
+          style={styles.navBar}
+          source={require("../assets/images/navbar.jpg")}
+        />
+      </view>
+    );
+  }
 }
 const styles = StyleSheet.create({
   container: {
     justifyContent: center,
     alignItems: center,
     position: relative,
-    left: 10
   },
 
   ticketHeader: {
@@ -103,6 +100,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 700,
   },
+
   head: {
     margin: 10,
   },
@@ -131,7 +129,7 @@ const styles = StyleSheet.create({
     position: absolute,
     bottom: 0,
     width: 400,
-    height: 81 
+    height: 81,
   },
   logo: {
     width: 70,
