@@ -5,9 +5,9 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import HomeScreen from './screens/HomeScreen';
 import TicketScreen from "./screens/TicketScreen";
 
-import useCachedResources from './hooks/useCachedResources';
+import useCachedResources from "./hooks/useCachedResources";
 
-import LinkingConfiguration from './navigation/LinkingConfiguration';
+import LinkingConfiguration from "./navigation/LinkingConfiguration";
 
 const Stack = createStackNavigator();
 
@@ -34,6 +34,6 @@ export default function App(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
 });
