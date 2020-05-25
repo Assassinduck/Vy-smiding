@@ -6,8 +6,8 @@ export default {
     Root: {
       path: 'root',
       screens: {
-        Home: 'home',
-        Tick: "ticket"
+        Home: 'Home',
+        Tick: "Ticket"
       },
     },
   },

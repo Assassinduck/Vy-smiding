@@ -1,19 +1,15 @@
 import * as WebBrowser from "expo-web-browser";
 import * as React from "react";
-import {
-  Image,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Button,
-} from "react-native";
+import {Image, Platform, StyleSheet, Text, TouchableOpacity, View, Button} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
+
 
 import { MonoText } from "../components/StyledText";
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -38,6 +34,7 @@ export default function HomeScreen() {
               style={styles.button}
               title="Se informasjon om reisen"
               color="#00957a"
+              onPress={() => navigation.navigate("Ticket")}
             />
           </TouchableOpacity>
         </View>

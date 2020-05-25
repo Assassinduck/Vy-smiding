@@ -1,65 +1,69 @@
-import React, { Component } from 'react';
-import { Text, View, Switch, Image } from 'react-native'
+import React, { Component, useState } from 'react';
+import {
+    Text, View, Switch, Image, StyleSheet} from 'react-native'
 
 
 
 export default function TicketScreen() {
 
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled(previousState => !previousState)
+
     
         return (
- <View class="container">
-    <View class="text-container">
-       <Text class="desc-text">Skru på varsling 10 minutter</Text>
+ <View style={styles.container}>
+    <View style={styles.textContainer}>
+       <Text>Skru på varsling 10 minutter</Text>
        <Text>før toget ankommer plattform</Text>
-       <Switch class="alert-btn" :on-value-change="handleChange" :value="value" />
+       <Switch style={styles.alertBtn} onPress={toggleSwitch} value={isEnabled} />
     </View>
     <Image
-      class="ticketCode"
-      style="{width: 300, height: 300}"
-      source={require('../assets/ticketCode.png')}
+      style={styles.ticketCode}
+      source={require('../assets/images/ticketCode.png')}
     />
-    <Text class="ticket-text">Billettnummer: 7738291</Text>
-    <Text class="ticket-text">Referanse nummer: QZBN</Text>
+    <Text style={styles.ticketText}>Billettnummer: 7738291</Text>
+    <Text style={styles.ticketText}>Referanse nummer: QZBN</Text>
   </View>
         );
 }
     
 const styles = StyleSheet.create({
-    container: {
-  alignItems: center,
-  justify-content: center;
-  flex: 1;
-}
-.header-text {
-  position: absolute;
-  top: -20;
-  font-size: 30;
-}
-.alert-btn {
-  position: absolute;
-  border-radius: 50px;
-  top: 20;
-  right: 10;
-}
-.text-container {
-  position: absolute;
-  top: 35;
-  padding: 10;
-  border-width: 3;
-  border-color: #00957a;
-  border-radius: 15;
-  width: 350;
-}
-.ticketCode {
-  position: absolute;
-  top: 150;
-}
-.ticket-text {
-  position: relative;
-  top: 190;
-  padding: 10;
-}
-})
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+  },
+  headerText: {
+    position: "absolute",
+    top: -20,
+    fontSize: 30,
+  },
+  alertBtn: {
+    position: "absolute",
+    borderRadius: 50,
+    top: 20,
+    right: 10,
+  },
+  textContainer: {
+    position: "absolute",
+    top: 35,
+    padding: 10,
+    borderWidth: 3,
+    borderColor: "#00957a",
+    borderRadius: 15,
+    width: 350,
+  },
+  ticketCode: {
+    position: "absolute",
+    top: 150,
+    width: 300,
+    height: 300,
+  },
+  ticketText: {
+    position: "relative",
+    top: 190,
+    padding: 10,
+  },
+});
 
 
-export default TicketScreen;
