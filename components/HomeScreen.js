@@ -27,25 +27,25 @@ class HomeScreen extends Component {
                   <text style={styles.ticketText}>Dine Billetter</text>
                 </view>
                 <view style={styles.ticket}>
-                  <text style="ticket-txt1">Oslo til Bergen</text>
-                  <text style={styles.ticket - txt}>Platform 1</text>
+                  <text style={styles.travelText}>Oslo til Bergen</text>
+                  <text style={styles.ticketText}>Platform 1</text>
                   <text style={styles.ticketText}>Avreise kl.12.45</text>
-                  <TouchableOpacity style="ticket-button" title="Button">
+                  <TouchableOpacity style={styles.ticketButton} title="Button">
                     <button
-                      styleName="button"
+                      style={styles.button}
                       title="Se informasjon om reisen"
                       color="#00957a"
                       onPress={goToInformation}
                     />
                   </TouchableOpacity>
                 </view>
-                <view style="ticket">
-                  <text style="ticket-txt1">Oslo til Bergen</text>
-                  <text style="ticket-txt">Platform 1</text>
-                  <text style="ticket-txt">Avreise kl.12.45</text>
-                  <TouchableOpacity style="ticket-button" title="Button">
+                <view style={styles.ticket}>
+                  <text style={styles.travelText}>Oslo til Bergen</text>
+                  <text style={styles.ticketText}>Platform 1</text>
+                  <text style={styles.ticketText}>Avreise kl.12.45</text>
+                  <TouchableOpacity style={styles.ticketButton} title="Button">
                     <button
-                      style="button"
+                      style={styles.button}
                       title="Se informasjon om reisen"
                       color="#00957a"
                       onPress={goToInformation}
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     alignItems: center,
     margin: 5,
   },
-  ticketText1: {
+  travelText: {
     fontSize: 22,
     marginTop: 5,
   },
