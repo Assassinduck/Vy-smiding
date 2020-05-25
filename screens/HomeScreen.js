@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Button
+  Button,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -16,7 +16,7 @@ import { MonoText } from "../components/StyledText";
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView style={styles.scrollView}>
         <View style={styles.ticketHeader}>
           <Image
             style={styles.logo}
@@ -31,8 +31,8 @@ export default function HomeScreen() {
         </View>
         <View style={styles.ticket}>
           <Text style={styles.travelText}>Oslo til Bergen</Text>
-          <Text style={styles.ticketText}>Platform 1</Text>
-          <Text style={styles.ticketText}>Avreise kl.12.45</Text>
+          <Text style={styles.descTravelText}>Platform 1</Text>
+          <Text style={styles.descTravelText}>Avreise kl.12.45</Text>
           <TouchableOpacity style={styles.ticketButton} title="Button">
             <Button
               style={styles.button}
@@ -43,8 +43,8 @@ export default function HomeScreen() {
         </View>
         <View style={styles.ticket}>
           <Text style={styles.travelText}>Oslo til Trondheim</Text>
-          <Text style={styles.ticketText}>Platform 7</Text>
-          <Text style={styles.ticketText}>Avreise kl.14.35</Text>
+          <Text style={styles.descTravelText}>Platform 7</Text>
+          <Text style={styles.descTravelText}>Avreise kl.14.35</Text>
           <TouchableOpacity style={styles.ticketButton} title="Button">
             <Button
               style={styles.button}
@@ -55,8 +55,8 @@ export default function HomeScreen() {
         </View>
         <View style={styles.ticket}>
           <Text style={styles.travelText}>Oslo til Hamar</Text>
-          <Text style={styles.ticketText}>Platform 3</Text>
-          <Text style={styles.ticketText}>Avreise kl.10.15</Text>
+          <Text style={styles.descTravelText}>Platform 3</Text>
+          <Text style={styles.descTravelText}>Avreise kl.10.15</Text>
           <TouchableOpacity style={styles.ticketButton} title="Button">
             <Button
               style={styles.button}
@@ -81,9 +81,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "relative",
-    left: 10,
+    width: "100%",
+    backgroundColor: "white",
   },
-
+  scrollView: {
+    width: "100%",
+  },
   ticketHeader: {
     backgroundColor: "#f2f2f3",
     padding: 5,
@@ -91,6 +94,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     margin: 5,
     alignItems: "center",
+    width: "100%",
   },
   headerText: {
     fontSize: 32,
@@ -100,15 +104,18 @@ const styles = StyleSheet.create({
   ticketText: {
     fontSize: 32,
     fontWeight: "700",
+    left: "25%",
   },
   head: {
     margin: 10,
+    width: "100%",
   },
   ticket: {
     backgroundColor: "#f2f2f3",
     width: 93,
     alignItems: "center",
     margin: 5,
+    width: "100%",
   },
   travelText: {
     fontSize: 22,
@@ -117,6 +124,9 @@ const styles = StyleSheet.create({
   ticketTxt: {
     position: "relative",
     marginTop: 4,
+  },
+  descTravelText: {
+    fontSize: 16,
   },
   ticketButton: {
     margin: 10,

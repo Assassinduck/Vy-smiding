@@ -28,8 +28,8 @@ class HomeScreen extends Component {
           </view>
           <view style={styles.ticket}>
             <text style={styles.travelText}>Oslo til Bergen</text>
-            <text>Platform 1</text>
-            <text>Avreise kl.12.45</text>
+            <text style={styles.travelText}>Platform 1</text>
+            <text style={styles.travelText}>Avreise kl.12.45</text>
             <TouchableOpacity style={styles.ticketButton} title="Button">
               <button
                 style={styles.button}
