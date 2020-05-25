@@ -11,7 +11,7 @@ class HomeScreen extends Component {
     render() {
 
         return (
-          <template>
+
             <view style={styles.container}>
               <ScrollView>
                 <view style={styles.ticketHeader}>
@@ -73,7 +73,7 @@ class HomeScreen extends Component {
                 source={require("../assets/images/navbar.jpg")}
               />
             </view>
-          </template>
+
         );
     }
     
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: center,
     alignItems: center,
     position: relative,
-    left: 10,
+    left: 10
   },
 
   ticketHeader: {
