@@ -70,7 +70,7 @@ class HomeScreen extends Component {
 
               <image
                 style={styles.navBar}
-                source={require("../assets/navbar.jpg")}
+                source={require("../assets/images/navbar.jpg")}
               />
             </view>
           </template>
