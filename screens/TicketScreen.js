@@ -6,24 +6,28 @@ import {
 
 export default function TicketScreen() {
 
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState)
+     const [isEnabled, setIsEnabled] = useState(false);
+     const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
     
         return (
- <View style={styles.container}>
-    <View style={styles.textContainer}>
-       <Text>Skru på varsling 10 minutter</Text>
-       <Text>før toget ankommer plattform</Text>
-       <Switch style={styles.alertBtn} onPress={toggleSwitch} value={isEnabled} />
-    </View>
-    <Image
-      style={styles.ticketCode}
-      source={require('../assets/images/ticketCode.png')}
-    />
-    <Text style={styles.ticketText}>Billettnummer: 7738291</Text>
-    <Text style={styles.ticketText}>Referanse nummer: QZBN</Text>
-  </View>
+          <View style={styles.container}>
+            <View style={styles.textContainer}>
+              <Text>Skru på varsling 10 minutter</Text>
+              <Text>før toget ankommer plattform</Text>
+              <Switch
+                style={styles.alertBtn}
+                onValueChange={toggleSwitch}
+                value={isEnabled}
+              />
+            </View>
+            <Image
+              style={styles.ticketCode}
+              source={require("../assets/images/ticketCode.png")}
+            />
+            <Text style={styles.ticketText}>Billettnummer: 7738291</Text>
+            <Text style={styles.ticketText}>Referanse nummer: QZBN</Text>
+          </View>
         );
 }
     
