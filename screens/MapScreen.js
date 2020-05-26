@@ -16,6 +16,9 @@ const coordinates = [
   {
     latitude: 60.390022,
     longitude: 5.334514,
+  },
+  {
+
   }
 ];
 
@@ -28,39 +31,79 @@ class MapScreen extends React.Component{
     super(props);
 
     this.state = {
-      coordinate: new AnimatedRegion({
+      Origin: new AnimatedRegion({
         latitude: 59.911491,
         longitude:10.757933,
         latitudeDelta: 0,
         longitudeDelta: 0,
        }),
+       Asker: new AnimatedRegion({      
+        latitude: 59.834079,
+        longitude: 10.435004,
+       latitudeDelta: 0,
+       longitudeDelta: 0,
+      }),
+      Drammen: new AnimatedRegion({
+        latitude: 59.740068, 
+        longitude: 10.204860,
+        latitudeDelta: 0,
+        longitudeDelta: 0
+      })
+    
     };
+
+
    }
 
    animate() {
-     const { coordinate } = this.state;
-     const newCoordinate = {
-      latitude: 60.390022,
-       longitude: 5.334514,
-       latitudeDelta: 0,
-       longitudeDelta: 0,
-       duration: 50000,
-     };
+    //  console.log(this.state.coordinate1);
+    //  console.log(this.state.coordinate2);
+     const coordinate1 = this.state.Origin;
+     const coordinate2 = this.state.Asker;
 
-    //  if (Platform.OS === 'android') {
-    //  if (this.marker) {
-    //     this.marker._component.animateMarkerToCoordinate(newCoordinate, 500);
-    //   }
-    //  } else {
-       coordinate.timing(newCoordinate).start();
-    //  }
-   }
+     const coordinate3 = this.state.Drammen;
+     const newCoordinate =[{
+      latitude: 59.834079,
+      longitude: 10.435004,
+      latitudeDelta: 0,
+      longitudeDelta: 0,
+      duration: 5000,
+     },
+     {
+      latitude: 59.740068,
+      longitude: 10.204860,
+      latitudeDelta: 0,
+      longitudeDelta: 0,
+      duration: 5000,
+      delay: 5000
+      
+     },{
+      latitude: 59.767305,
+      longitude: 9.910776,
+      latitudeDelta: 0,
+      longitudeDelta: 0,
+      duration: 5000,
+      delay: 10000
+     }
+    ]
+
+     coordinate1.timing(newCoordinate[0]).start();
+
+     coordinate2.timing(newCoordinate[1]).start();
+
+     coordinate3.timing(newCoordinate[2]).start();
+       
+       
+    }
+
+
+   
 
 
 
 
 
-  render() {
+render() {
   return (
     <View style={styles.container}>
       <MapView
@@ -75,10 +118,17 @@ class MapScreen extends React.Component{
         <Marker coordinate={coordinates[0]} />
         <Marker coordinate={coordinates[1]} />
 
+
         <MapView.Marker.Animated
-        ref={marker => { this.marker = marker }}
-        coordinate={this.state.coordinate}
+        coordinate={this.state.Origin}
       /> 
+      <MapView.Marker.Animated 
+        coordinate={this.state.Asker}
+      />
+      <MapView.Marker.Animated 
+        coordinate={this.state.Drammen}
+      />
+
 
         <MapViewDirections
           origin={coordinates[0]}
@@ -101,11 +151,12 @@ class MapScreen extends React.Component{
   );
 
       }
+    }
 
       // AnimatedMarkers.propTypes = {
       //   provider: ProviderPropType,
       // };
-}
+
 
 MapScreen.propTypes = {
   provider: ProviderPropType,
