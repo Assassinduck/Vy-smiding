@@ -77,7 +77,8 @@ class MapScreen extends React.Component{
       duration: 5000,
       delay: 5000
       
-     },{
+       },
+       {
       latitude: 59.767305,
       longitude: 9.910776,
       latitudeDelta: 0,

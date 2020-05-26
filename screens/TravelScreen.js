@@ -18,7 +18,7 @@ export default function TravelScreen({ navigation }) {
       />
 
       <TouchableOpacity style={styles.addBtn} title="Button">
-        <Button style={styles.button} title="Del din reise" color="#00957a" />
+        <Button onPress={() => navigation.navigate("Share")} style={styles.button} title="Del din reise" color="#00957a" />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.addBtn} title="Button">

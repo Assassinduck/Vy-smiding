@@ -10,6 +10,7 @@ export default {
         Tick: "Ticket",
         Travel: "Travel",
         Map: "Map",
+        Share: "Share",
       },
     },
   },

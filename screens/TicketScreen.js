@@ -12,6 +12,8 @@ import * as Permissions from "expo-permissions";
 
 
 class TicketScreen extends Component {
+
+
   state = {
     isEnabled: false,
     mounted: false,
@@ -19,6 +21,7 @@ class TicketScreen extends Component {
     notification: {},
   };
 
+    
   registerForPushNotificationsAsync = async () => {
     if (Constants.isDevice) {
       const { status: existingStatus } = await Permissions.getAsync(
@@ -52,6 +55,8 @@ class TicketScreen extends Component {
     }
   };
 
+
+
   componentDidMount() {
     this.registerForPushNotificationsAsync();
 
@@ -73,7 +78,7 @@ class TicketScreen extends Component {
     const message = {
       to: this.state.expoPushToken,
       sound: "default",
-      title: "Original Title",
+      title: "Vy",
       body: "And here is the body!",
       data: { data: "goes here" },
       _displayInForeground: true,
