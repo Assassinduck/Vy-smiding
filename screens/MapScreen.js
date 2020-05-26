@@ -1,14 +1,7 @@
 import React, { Component, useState } from "react";
 import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
-import {
-  Text,
-  View,
-  Switch,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
+import {Text, View, Switch, Image, StyleSheet, TouchableOpacity, Button,
 } from "react-native";
 import {  
   ProviderPropType,

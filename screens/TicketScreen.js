@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, Component } from 'react';
 import {
   Text, View, Switch, Image, StyleSheet
 } from 'react-native'
@@ -6,16 +6,18 @@ import {
 
 
 
-export default function TicketScreen() {
+class TicketScreen extends Component {
 
-     const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-  
 
-  
-  const handleChange = (val) => {
-    isEnabled = val;
-    if (isEnabled) {
+    state = {
+      isEnabled: false,
+      notification: {}
+    };
+
+
+  handleChange = (val) =>{
+    this.state.isEnabled = val;
+    if (this.state.isEnabled) {
       PushNotification.body = "test";
       PushNotification.link = "https://www.finn.no";
       PushNotification.timer = 10;
@@ -28,41 +30,39 @@ export default function TicketScreen() {
     }
   }
 
-  useEffect(function () {
-    
-  })
-
 
   componentDidMount() {
-    PushNotification.registerForPushNotificationsAsync();
-    PushNotification._notificationSubscription = Notifications.addListener(
-      PushNotification._handleNotification
-    );
+       PushNotification.registerForPushNotificationsAsync();
+       PushNotification._notificationSubscription = Notifications.addListener(
+       PushNotification._handleNotification
+    )
   }
 
 
-
-    
-        return (
-          <View style={styles.container}>
-            <View style={styles.textContainer}>
-              <Text>Skru på varsling 10 minutter</Text>
-              <Text>før toget ankommer plattform</Text>
-              <Switch
-                style={styles.alertBtn}
-                onValueChange={toggleSwitch}
-                value={isEnabled}
-              />
-            </View>
-            <Image
-              style={styles.ticketCode}
-              source={require("../assets/images/ticketCode.png")}
-            />
-            <Text style={styles.ticketText}>Billettnummer: 7738291</Text>
-            <Text style={styles.ticketText}>Referanse nummer: QZBN</Text>
-          </View>
-        );
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.textContainer}>
+          <Text>Skru på varsling 10 minutter</Text>
+          <Text>før toget ankommer plattform</Text>
+          <Switch
+            style={styles.alertBtn}
+            onValueChange={this.handleChange}
+            value={this.state.isEnabled}
+          />
+        </View>
+        <Image
+          style={styles.ticketCode}
+          source={require("../assets/images/ticketCode.png")}
+        />
+        <Text style={styles.ticketText}>Billettnummer: 7738291</Text>
+        <Text style={styles.ticketText}>Referanse nummer: QZBN</Text>
+      </View>
+    );
+  }
 }
+
+export default TicketScreen;
     
 const styles = StyleSheet.create({
   container: {
