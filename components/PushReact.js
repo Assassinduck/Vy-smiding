@@ -1,11 +1,13 @@
 import React from "react";
-import { Text, View, Button, Vibration, Platform } from "react-native";
+import { Text, View, Button, Vibration, Platform, StyleSheet, Switch, Image } from "react-native";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 
 export default class PushNotifications extends React.Component {
   state = {
+    isEnabled: false,
+    mounted: false,
     expoPushToken: "",
     notification: {},
   };
@@ -34,7 +36,7 @@ export default class PushNotifications extends React.Component {
     }
 
     if (Platform.OS === "android") {
-      Notifications.createChannelAndroidAsync("default", {
+      Notifications.createChannelAndroidAsync("android", {
         name: "default",
         sound: true,
         priority: "max",
@@ -46,11 +48,6 @@ export default class PushNotifications extends React.Component {
   componentDidMount() {
     this.registerForPushNotificationsAsync();
 
-    // Handle notifications that are received or selected while the app
-    // is open. If the app was closed and then opened by tapping the
-    // notification (rather than just tapping the app icon to open it),
-    // this function will fire on the next tick after the app starts
-    // with the notification data.
     this._notificationSubscription = Notifications.addListener(
       this._handleNotification
     );
@@ -64,6 +61,10 @@ export default class PushNotifications extends React.Component {
 
   // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/dashboard/notifications
   sendPushNotification = async () => {
+    if(mounted){
+    this.setState((prevState => {
+      isEnabled: !prevState.isEnabled
+    }))}
     const message = {
       to: this.state.expoPushToken,
       sound: "default",
@@ -85,22 +86,33 @@ export default class PushNotifications extends React.Component {
 
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "space-around",
-        }}
-      >
-        <View style={{ alignItems: "center", justifyContent: "center" }}>
-          <Text>Origin: {this.state.notification.origin}</Text>
-          <Text>Data: {JSON.stringify(this.state.notification.data)}</Text>
+      <View style={styles.textContainer}>
+          <Text>Skru på varsling 10 minutter</Text>
+          <Text>før toget ankommer plattform</Text>
+          <Switch
+            style={styles.alertBtn}
+            onValueChange={() => this.sendPushNotification()}
+            value={this.state.isEnabled}
+          />
         </View>
-        <Button
-          title={"Press to Send Notification"}
-          onPress={() => this.sendPushNotification()}
-        />
-      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  alertBtn: {
+    position: "absolute",
+    borderRadius: 50,
+    top: 20,
+    right: 10,
+  },
+  textContainer: {
+    position: "absolute",
+    top: 35,
+    padding: 10,
+    borderWidth: 3,
+    borderColor: "#00957a",
+    borderRadius: 15,
+    width: 350,
+  },
+});
