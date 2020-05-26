@@ -77,6 +77,8 @@ class TicketScreen extends Component {
       body: "And here is the body!",
       data: { data: "goes here" },
       _displayInForeground: true,
+      channelId: "android",
+      _displayInForeground: true,
     };
     const response = await fetch("https://exp.host/--/api/v2/push/send", {
       method: "POST",
