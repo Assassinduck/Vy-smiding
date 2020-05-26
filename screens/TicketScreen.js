@@ -1,13 +1,46 @@
-import React, { Component, useState } from 'react';
+import React, {useState, useEffect } from 'react';
 import {
-    Text, View, Switch, Image, StyleSheet} from 'react-native'
+  Text, View, Switch, Image, StyleSheet
+} from 'react-native'
+    import PushNotification from "../components/PushReact"
 
 
 
 export default function TicketScreen() {
 
      const [isEnabled, setIsEnabled] = useState(false);
-     const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  
+
+  
+  const handleChange = (val) => {
+    isEnabled = val;
+    if (isEnabled) {
+      PushNotification.body = "test";
+      PushNotification.link = "https://www.finn.no";
+      PushNotification.timer = 10;
+      PushNotification.sendPushNotification();
+
+      PushNotification.body = "prøve";
+      PushNotification.link = "https://www.google.no";
+      PushNotification.timer += 5;
+      PushNotification.sendPushNotification();
+    }
+  }
+
+  useEffect(function () {
+    
+  })
+
+
+  componentDidMount() {
+    PushNotification.registerForPushNotificationsAsync();
+    PushNotification._notificationSubscription = Notifications.addListener(
+      PushNotification._handleNotification
+    );
+  }
+
+
 
     
         return (
