@@ -166,11 +166,22 @@ class MapScreen extends React.Component {
       expoPushToken: "",
       notification: {},
       body: "",
-      timer: 5,
+      timer: 0,
+      link: "",
     };
   }
 
   animate() {
+
+    this.state.body="ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer";
+    this.state.timer=14;
+    this.state.link="https://www.drammen.no/oppforinger/drammenselva/"
+    this.sendPushNotification();
+
+    this.state.body="Til høyre ligger tyrifjorden. Trykk her får å lære mer";
+    this.state.timer+=13;
+    this.state.link="https://snl.no/Tyrifjorden";
+    this.sendPushNotification();
 
     const coordinate1 = this.state.Origin;
     const coordinate0 = this.state.Sandvika;
@@ -400,12 +411,8 @@ class MapScreen extends React.Component {
     coordinate18.timing(newCoordinate[18]).start();
     coordinate19.timing(newCoordinate[19]).start();
 
-    this.state.body="ankommer nå Sandvika";
-    this.state.timer=5;
-    this.sendPushNotification();
-    this.state.body="Ankommer nå Asker";
-    this.state.timer+=5
-    this.sendPushNotification();
+
+
   }
 
   componentDidMount() {
@@ -459,6 +466,7 @@ class MapScreen extends React.Component {
       sound: "default",
       title: "VY",
       body: this.state.body,
+      link: this.state.link,
       channelId: "android",
       data: { data: "goes here" },
       _displayInForeground: true,
