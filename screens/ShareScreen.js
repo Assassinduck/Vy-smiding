@@ -11,7 +11,7 @@ import {
   TextInput
 } from "react-native";
 import * as Linking from "expo-linking";
-import * as SMS from "expo-sms";
+//import * as SMS from "expo-sms";
 
 
 

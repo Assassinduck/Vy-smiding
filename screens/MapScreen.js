@@ -9,8 +9,14 @@ import {
   StyleSheet,
   TouchableOpacity,
   Button,
+  Vibration,
+  Platform,
 } from "react-native";
 import { ProviderPropType, Marker, AnimatedRegion } from "react-native-maps";
+import {PushNotifications} from "../components/PushReact";
+import { Notifications } from "expo";
+import * as Permissions from "expo-permissions";
+import Constants from "expo-constants";
 
 const coordinates = [
   {
@@ -157,12 +163,25 @@ class MapScreen extends React.Component {
         latitudeDelta: 0,
         longitudeDelta: 0,
       }),
+      expoPushToken: "",
+      notification: {},
+      body: "",
+      timer: 0,
+      link: "",
     };
   }
 
   animate() {
-    //  console.log(this.state.coordinate1);
-    //  console.log(this.state.coordinate2);
+
+    this.state.body="ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer";
+    this.state.timer=14;
+    this.state.link="https://www.drammen.no/oppforinger/drammenselva/"
+    this.sendPushNotification();
+
+    this.state.body="Til høyre ligger tyrifjorden. Trykk her får å lære mer";
+    this.state.timer+=13;
+    this.state.link="https://snl.no/Tyrifjorden";
+    this.sendPushNotification();
 
     const coordinate1 = this.state.Origin;
     const coordinate0 = this.state.Sandvika;
@@ -391,7 +410,91 @@ class MapScreen extends React.Component {
     coordinate17.timing(newCoordinate[17]).start();
     coordinate18.timing(newCoordinate[18]).start();
     coordinate19.timing(newCoordinate[19]).start();
+
+
+
   }
+
+  componentDidMount() {
+    this.registerForPushNotificationsAsync();
+
+    this._notificationSubscription = Notifications.addListener(
+      this._handleNotification
+    );
+  }
+
+  registerForPushNotificationsAsync = async () => {
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+      );
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Permissions.askAsync(
+          Permissions.NOTIFICATIONS
+        );
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
+        return;
+      }
+     const token = await Notifications.getExpoPushTokenAsync();
+      console.log(token);
+      this.setState({ expoPushToken: token });
+    } else {
+      alert("Must use physical device for Push Notifications");
+    }
+
+    if (Platform.OS === "android") {
+      Notifications.createChannelAndroidAsync("android", {
+        name: "android",
+        sound: true,
+        priority: "max",
+        vibrate: [0, 250, 250, 250],
+      });
+    }
+  };
+
+  sendPushNotification = async () => {
+    // if(mounted){
+    // this.setState((prevState => {
+    //   isEnabled: !prevState.isEnabled
+    // }))}
+    const message = {
+      to: this.state.expoPushToken,
+      sound: "default",
+      title: "VY",
+      body: this.state.body,
+      link: this.state.link,
+      channelId: "android",
+      data: { data: "goes here" },
+      _displayInForeground: true,
+    };
+    
+    // const response = await fetch("https://exp.host/--/api/v2/push/send", {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Accept-encoding": "gzip, deflate",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(message),
+
+      
+    // });
+
+    const schedulingOptions = {
+      time: new Date().getTime() + (this.state.timer*1000)
+    };
+    Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
+  }
+
+  _handleNotification = (notification) => {
+    Vibration.vibrate();
+    console.log(notification);
+    this.setState({ notification: notification });
+  };
 
   render() {
     return (
