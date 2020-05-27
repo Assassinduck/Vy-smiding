@@ -11,7 +11,7 @@ import {
   Alert,
   TextInput
 } from "react-native";
-//import * as Linking from "expo-linking";
+
 import * as SMS from "expo-sms";
 
 
@@ -81,7 +81,6 @@ class ShareScreen extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.addButton} title="Button">
-
           <Button
             class="button"
             title="Messenger"
@@ -90,31 +89,28 @@ class ShareScreen extends Component {
           />
         </TouchableOpacity>
 
-      
-
         <TouchableOpacity style={styles.addButton} title="Button">
           {this.state.smsAvailable && (
             <Button
               class="button"
               title="SMS"
               color="#80046b"
-              onPress={() =>
-                this.renderInputField()
-              }
+              onPress={() => this.OpenSmS()}
             />
           )}
           {this.state.inputSmsBoolean && (
-            <TextInput onSubmitEditing={text => this.setPhoneNum(text)}></TextInput>
+            <TextInput
+              onSubmitEditing={(text) => this.setPhoneNum(text)}
+            ></TextInput>
           )}
-
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.addButton} title="Button">
-          <Button 
-          class="button" 
-          title="Mail" 
-          color="#ea4335" 
-          onPress={() => this.OpenMail()}
+          <Button
+            class="button"
+            title="Mail"
+            color="#ea4335"
+            onPress={() => this.OpenMail()}
           />
         </TouchableOpacity>
       </View>
