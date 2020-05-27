@@ -11,7 +11,7 @@ import {
   Alert,
   TextInput
 } from "react-native";
-import * as Linking from "expo-linking";
+//import * as Linking from "expo-linking";
 import * as SMS from "expo-sms";
 
 
@@ -52,7 +52,7 @@ class ShareScreen extends Component {
 
 
     OpenFacebookMessanger = async () => {
-    Linking.openURL("mailto://support@expo.io");
+    Linking.openURL('http://m.me?body=hei');
   };
   
    OpenMail = async () => {
