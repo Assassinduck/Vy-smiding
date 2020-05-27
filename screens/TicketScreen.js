@@ -81,19 +81,23 @@ class TicketScreen extends Component {
       title: "Vy",
       body: "And here is the body!",
       data: { data: "goes here" },
-      _displayInForeground: true,
       channelId: "android",
       _displayInForeground: true,
     };
-    const response = await fetch("https://exp.host/--/api/v2/push/send", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Accept-encoding": "gzip, deflate",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(message),
-    });
+    // const response = await fetch("https://exp.host/--/api/v2/push/send", {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Accept-encoding": "gzip, deflate",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(message),
+      
+    // });
+    const schedulingOptions = {
+      time: new Date().getTime() + (5000)
+    };
+    Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
   };
 
   render() {

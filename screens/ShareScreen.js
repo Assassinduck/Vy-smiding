@@ -8,10 +8,12 @@ import {
   View,
     Button,
     Linking,
-  Alert
+  Alert,
+  TextInput
 } from "react-native";
-//import * as Link from "expo-linking";
+import * as Linking from "expo-linking";
 import * as SMS from "expo-sms";
+
 
 
 
@@ -20,29 +22,34 @@ import * as SMS from "expo-sms";
 class ShareScreen extends Component {
   state = {
     VyMessage:
-      "Hei, trykk på denne linken: https://www.youtube.com/watch?v=dQw4w9WgXcQ for å se hvor jeg er på reisa",
-    phoneNum: "95839305",
+      "Hei, trykk på denne linken:https://www.youtube.com/watch?v=dQw4w9WgXcQ for å se hvor jeg er på reisa",
+    phoneNum: "",
     smsAvailable: undefined,
+    inputSmsBoolean: false
   };
   
 
   OpenSmS = async () => {
     console.log("fgwaad");
-    const isAvailableAsync = await SMS.isAvailableAsync();
-    if (isAvailableAsync) {
-      this.setState({
-        smsAvailable: false,
-      });
+    if (this.state.smsAvailable) {
       const message = SMS.sendSMSAsync(
         this.state.phoneNum,
         this.state.VyMessage
       );
-      console.log(isAvailableAsync);
-    } else {
     }
-    const message = SMS.sendSMSAsync(this.state.phoneNum, this.state.VyMessage);
-    console.log(message);
-  };
+  }
+
+  renderInputField = () => {
+    console.log("hello");
+    this.setState({ inputSmsBoolean: true })
+  }
+
+  setPhoneNum = (phoneNumber) => {
+    console.log(phoneNumber);
+    this.setState({ phoneNum: phoneNumber });
+    console.log(this.state.phoneNum)
+  }
+
 
     OpenFacebookMessanger = async () => {
     Linking.openURL("mailto://support@expo.io");
@@ -53,12 +60,28 @@ class ShareScreen extends Component {
   };
   
 
-  componentDidMount = async () => {};
+ 
+  componentDidUpdate() {
+    console.log(this.state.inputSmsBoolean)
+  }
+
+
+
+  componentDidMount = async () => {
+    const isAvailableAsync = await SMS.isAvailableAsync();
+    if (isAvailableAsync) {
+      this.setState({
+        smsAvailable: true,
+      });
+    };
+  }
+
 
   render() {
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.addButton} title="Button">
+
           <Button
             class="button"
             title="Messenger"
@@ -67,13 +90,23 @@ class ShareScreen extends Component {
           />
         </TouchableOpacity>
 
+      
+
         <TouchableOpacity style={styles.addButton} title="Button">
-          <Button 
-          class="button" 
-          title="SMS" 
-          color="#80046b" 
-          onPress={() => this.OpenSmS()}
-          />
+          {this.state.smsAvailable && (
+            <Button
+              class="button"
+              title="SMS"
+              color="#80046b"
+              onPress={() =>
+                this.renderInputField()
+              }
+            />
+          )}
+          {this.state.inputSmsBoolean && (
+            <TextInput onSubmitEditing={text => this.setPhoneNum(text)}></TextInput>
+          )}
+
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.addButton} title="Button">
@@ -88,6 +121,7 @@ class ShareScreen extends Component {
     );
   }
 }
+
 
 const styles = StyleSheet.create({
     container: {

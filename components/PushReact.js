@@ -4,13 +4,49 @@ import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 
-export default class PushNotifications extends React.Component {
+class PushNotifications extends React.Component {
   state = {
     isEnabled: false,
     mounted: false,
     expoPushToken: "",
     notification: {},
+    body: "",
+    timer: 5,
+
   };
+
+  sendPushNotification = async () => {
+    // if(mounted){
+    // this.setState((prevState => {
+    //   isEnabled: !prevState.isEnabled
+    // }))}
+    const message = {
+      to: this.state.expoPushToken,
+      sound: "default",
+      title: "VY",
+      body: this.state.body,
+      channelId: "android",
+      data: { data: "goes here" },
+      _displayInForeground: true,
+    };
+    
+    // const response = await fetch("https://exp.host/--/api/v2/push/send", {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Accept-encoding": "gzip, deflate",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(message),
+
+      
+    // });
+
+    const schedulingOptions = {
+      time: new Date().getTime() + (this.state.timer*1000)
+    };
+    Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
+  }
 
   registerForPushNotificationsAsync = async () => {
     if (Constants.isDevice) {
@@ -28,7 +64,7 @@ export default class PushNotifications extends React.Component {
         alert("Failed to get push token for push notification!");
         return;
       }
-      token = await Notifications.getExpoPushTokenAsync();
+     const token = await Notifications.getExpoPushTokenAsync();
       console.log(token);
       this.setState({ expoPushToken: token });
     } else {
@@ -37,7 +73,7 @@ export default class PushNotifications extends React.Component {
 
     if (Platform.OS === "android") {
       Notifications.createChannelAndroidAsync("android", {
-        name: "default",
+        name: "android",
         sound: true,
         priority: "max",
         vibrate: [0, 250, 250, 250],
@@ -45,13 +81,7 @@ export default class PushNotifications extends React.Component {
     }
   };
 
-  componentDidMount() {
-    this.registerForPushNotificationsAsync();
 
-    this._notificationSubscription = Notifications.addListener(
-      this._handleNotification
-    );
-  }
 
   _handleNotification = (notification) => {
     Vibration.vibrate();
@@ -60,59 +90,7 @@ export default class PushNotifications extends React.Component {
   };
 
   // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/dashboard/notifications
-  sendPushNotification = async () => {
-    if(mounted){
-    this.setState((prevState => {
-      isEnabled: !prevState.isEnabled
-    }))}
-    const message = {
-      to: this.state.expoPushToken,
-      sound: "default",
-      title: "Original Title",
-      body: "And here is the body!",
-      data: { data: "goes here" },
-      _displayInForeground: true,
-    };
-    const response = await fetch("https://exp.host/--/api/v2/push/send", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Accept-encoding": "gzip, deflate",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(message),
-    });
-  };
 
-  render() {
-    return (
-      <View style={styles.textContainer}>
-          <Text>Skru på varsling 10 minutter</Text>
-          <Text>før toget ankommer plattform</Text>
-          <Switch
-            style={styles.alertBtn}
-            onValueChange={() => this.sendPushNotification()}
-            value={this.state.isEnabled}
-          />
-        </View>
-    );
-  }
 }
 
-const styles = StyleSheet.create({
-  alertBtn: {
-    position: "absolute",
-    borderRadius: 50,
-    top: 20,
-    right: 10,
-  },
-  textContainer: {
-    position: "absolute",
-    top: 35,
-    padding: 10,
-    borderWidth: 3,
-    borderColor: "#00957a",
-    borderRadius: 15,
-    width: 350,
-  },
-});
+export default PushNotifications
