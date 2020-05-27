@@ -12,9 +12,7 @@ import {
   TextInput
 } from "react-native";
 
-
 import * as SMS from "expo-sms";
-
 
 
 class ShareScreen extends Component {
@@ -83,7 +81,6 @@ class ShareScreen extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.addButton} title="Button">
-
           <Button
             class="button"
             title="Messenger"
@@ -91,8 +88,6 @@ class ShareScreen extends Component {
             onPress={() => this.OpenFacebookMessanger()}
           />
         </TouchableOpacity>
-
-      
 
         <TouchableOpacity style={styles.addButton} title="Button">
           {this.state.smsAvailable && (
@@ -108,15 +103,14 @@ class ShareScreen extends Component {
               onSubmitEditing={(text) => this.setPhoneNum(text)}
             ></TextInput>
           )}
-
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.addButton} title="Button">
-          <Button 
-          class="button" 
-          title="Mail" 
-          color="#ea4335" 
-          onPress={() => this.OpenMail()}
+          <Button
+            class="button"
+            title="Mail"
+            color="#ea4335"
+            onPress={() => this.OpenMail()}
           />
         </TouchableOpacity>
       </View>
