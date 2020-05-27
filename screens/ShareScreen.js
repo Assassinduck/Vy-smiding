@@ -7,20 +7,24 @@ import {
   TouchableOpacity,
   View,
     Button,
+    Linking,
   Alert
 } from "react-native";
-import * as Linking from "expo-linking";
+//import * as Link from "expo-linking";
 import * as SMS from "expo-sms";
+
+
 
 
 
 class ShareScreen extends Component {
   state = {
     VyMessage:
-      "Hei, trykk på denne linken:https://www.youtube.com/watch?v=dQw4w9WgXcQ for å se hvor jeg er på reisa",
+      "Hei, trykk på denne linken: https://www.youtube.com/watch?v=dQw4w9WgXcQ for å se hvor jeg er på reisa",
     phoneNum: "95839305",
     smsAvailable: undefined,
   };
+  
 
   OpenSmS = async () => {
     console.log("fgwaad");
@@ -40,6 +44,15 @@ class ShareScreen extends Component {
     console.log(message);
   };
 
+    OpenFacebookMessanger = async () => {
+    Linking.openURL("mailto://support@expo.io");
+  };
+  
+   OpenMail = async () => {
+    Linking.openURL('mailto:?subject=Delt reise&body=Hei, trykk på denne linken: https://www.youtube.com/watch?v=dQw4w9WgXcQ for å se hvor jeg er på reisen');
+  };
+  
+
   componentDidMount = async () => {};
 
   render() {
@@ -50,17 +63,26 @@ class ShareScreen extends Component {
             class="button"
             title="Messenger"
             color="#00C6FF"
-            onPress={() => this.OpenSmS()}
+            onPress={() => this.OpenFacebookMessanger()}
           />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.addButton} title="Button">
-          <Button class="button" title="SMS" color="#80046b" />
-          {!this.state.smsAvailable && <Text>hei</Text>}
+          <Button 
+          class="button" 
+          title="SMS" 
+          color="#80046b" 
+          onPress={() => this.OpenSmS()}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.addButton} title="Button">
-          <Button class="button" title="Mail" color="#ea4335" />
+          <Button 
+          class="button" 
+          title="Mail" 
+          color="#ea4335" 
+          onPress={() => this.OpenMail()}
+          />
         </TouchableOpacity>
       </View>
     );
