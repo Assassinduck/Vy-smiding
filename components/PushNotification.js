@@ -3,22 +3,11 @@ import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 import {  Vibration, Platform } from "react-native";
 import moment from "moment";
+import React from 'react';
 
 export default {
-    name: "PushNotification",
-  data: function() {
-    return {
-      value: false,
-      expoPushToken: "",
-      notification: {},
-      body: "",
-      link: "",
-      timer: 5
-    };
-  },
-  props: {
-    navigation: { type: Object }
-  },
+
+
   
 
     sendPushNotification() {
