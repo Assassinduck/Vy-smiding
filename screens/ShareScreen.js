@@ -23,7 +23,7 @@ class ShareScreen extends Component {
   state = {
     VyMessage:
       "Hei, trykk på denne linken:https://www.youtube.com/watch?v=dQw4w9WgXcQ for å se hvor jeg er på reisa",
-    phoneNum: "",
+    phoneNum: "95839305",
     smsAvailable: undefined,
     inputSmsBoolean: false
   };
