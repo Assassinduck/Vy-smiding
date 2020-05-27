@@ -11,7 +11,7 @@ import {
   TextInput
 } from "react-native";
 import * as Linking from "expo-linking";
-//import * as SMS from "expo-sms";
+import * as SMS from "expo-sms";
 
 
 
@@ -19,10 +19,14 @@ class ShareScreen extends Component {
   state = {
     VyMessage:
       "Hei, trykk på denne linken:https://www.youtube.com/watch?v=dQw4w9WgXcQ for å se hvor jeg er på reisa",
-    phoneNum: "",
+    phoneNum: "95839305",
     smsAvailable: undefined,
     inputSmsBoolean: false
   };
+
+  openMessanger = async () => {
+    Linking.canOpenURL()
+  }
 
   OpenSmS = async () => {
     console.log("fgwaad");
@@ -73,13 +77,13 @@ class ShareScreen extends Component {
               class="button"
               title="SMS"
               color="#80046b"
-              onPress={() =>
-                this.renderInputField()
-              }
+              onPress={() => this.OpenSmS()}
             />
           )}
           {this.state.inputSmsBoolean && (
-            <TextInput onSubmitEditing={text => this.setPhoneNum(text)}></TextInput>
+            <TextInput
+              onSubmitEditing={(text) => this.setPhoneNum(text)}
+            ></TextInput>
           )}
         </TouchableOpacity>
 
