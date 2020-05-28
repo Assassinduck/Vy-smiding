@@ -13,7 +13,6 @@ import {
   Platform,
 } from "react-native";
 import { ProviderPropType, Marker, AnimatedRegion } from "react-native-maps";
-import {PushNotifications} from "../components/PushReact";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
@@ -174,12 +173,12 @@ class MapScreen extends React.Component {
     this.state.timer=0
 
     this.state.body="ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer";
-    this.state.timer+=14;
+    this.state.timer=14;
     this.state.link="https://www.drammen.no/oppforinger/drammenselva/"
     this.sendPushNotification();
 
     this.state.body="Til høyre ligger tyrifjorden. Trykk her får å lære mer";
-    this.state.timer+=13;
+    this.state.timer=27;
     this.state.link="https://snl.no/Tyrifjorden";
     this.sendPushNotification();
 
@@ -489,7 +488,7 @@ class MapScreen extends React.Component {
     // });
 
     const schedulingOptions = {
-      time: new Date().getTime() + (this.state.timer*1000)
+      time: new Date().getTime()+(this.state.timer*1000)
     };
     Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
   }
@@ -611,7 +610,7 @@ class MapScreen extends React.Component {
             onPress={() => this.animate()}
             style={[styles.bubble, styles.button]}
           >
-            <Text>Animate</Text>
+            <Text>Start Reise</Text>
           </TouchableOpacity>
         </View>
       </View>
