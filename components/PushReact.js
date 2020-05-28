@@ -11,7 +11,7 @@ class PushNotifications extends React.Component {
     expoPushToken: "",
     notification: {},
     body: "",
-    timer: 5,
+    timer: 0,
 
   };
 
