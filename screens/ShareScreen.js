@@ -6,8 +6,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-    Button,
-    Linking,
+  Button,
+  Linking,
   Alert,
   TextInput
 } from "react-native";
@@ -19,15 +19,11 @@ class ShareScreen extends Component {
   state = {
     VyMessage:
       "Hei, trykk på denne linken:https://www.youtube.com/watch?v=dQw4w9WgXcQ for å se hvor jeg er på reisa",
-    phoneNum: "95839305",
+    phoneNum: "",
     smsAvailable: undefined,
     inputSmsBoolean: false
   };
   
-
-  openMessanger = async () => {
-    Linking.canOpenURL()
-  }
 
   OpenSmS = async () => {
     console.log("fgwaad");
@@ -52,6 +48,8 @@ class ShareScreen extends Component {
 
 
     OpenFacebookMessanger = async () => {
+    //Linking.openURL('http://m.me?ref=messages/new');
+  
     Linking.openURL('http://m.me');
   };
   
@@ -79,8 +77,16 @@ class ShareScreen extends Component {
 
   render() {
     return (
+    
+    
       <View style={styles.container}>
+
+       <Text style={styles.descriptionText}>Ønsker du å dele reiseruten med en venn?</Text>
+        <Text style={styles.descriptionText}>Send reisekoden til en bekjent, slik at de får live-oppdateringer på hvor du befinner deg på reisen.</Text>
+        <Text style={styles.descriptionText}> Del din kode via:</Text>
+        
         <TouchableOpacity style={styles.addButton} title="Button">
+
           <Button
             class="button"
             title="Messenger"
@@ -89,28 +95,31 @@ class ShareScreen extends Component {
           />
         </TouchableOpacity>
 
+      
+
         <TouchableOpacity style={styles.addButton} title="Button">
           {this.state.smsAvailable && (
             <Button
               class="button"
               title="SMS"
               color="#80046b"
-              onPress={() => this.OpenSmS()}
+              onPress={() =>
+                this.renderInputField()
+              }
             />
           )}
           {this.state.inputSmsBoolean && (
-            <TextInput
-              onSubmitEditing={(text) => this.setPhoneNum(text)}
-            ></TextInput>
+            <TextInput onSubmitEditing={text => this.setPhoneNum(text)}></TextInput>
           )}
+
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.addButton} title="Button">
-          <Button
-            class="button"
-            title="Mail"
-            color="#ea4335"
-            onPress={() => this.OpenMail()}
+          <Button 
+          class="button" 
+          title="Mail" 
+          color="#ea4335" 
+          onPress={() => this.OpenMail()}
           />
         </TouchableOpacity>
       </View>
@@ -128,7 +137,13 @@ const styles = StyleSheet.create({
   flex: 1,
   height: 100,
 },
-
+descriptionText:{
+top: -100,
+fontSize: 16,
+fontFamily: 'sans-serif',
+textAlign: "center",
+margin: 10
+},
  addButton: {
   margin: 10,
   justifyContent: "center",
