@@ -7,157 +7,163 @@ import {
   StyleSheet,
   TouchableOpacity,
   Button,
-  Vibration
+  Vibration,
 } from "react-native";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 
+class TravelScreen extends Component {
+  state = {
+    isEnabled: false,
+    mounted: false,
+    expoPushToken: "",
+    notification: {},
+  };
 
+  componentDidMount() {
+    this.registerForPushNotificationsAsync();
 
-  
+    this._notificationSubscription = Notifications.addListener(
+      this._handleNotification
+    );
+  }
 
-class TravelScreen extends Component{
-
-
-    state = {
-      isEnabled: false,
-      mounted: false,
-      expoPushToken: "",
-      notification: {}
-    }
-
-
-    
-    componentDidMount() {
-      this.registerForPushNotificationsAsync();
-  
-      this._notificationSubscription = Notifications.addListener(
-        this._handleNotification
+  registerForPushNotificationsAsync = async () => {
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
       );
-
-    }
-  
-    registerForPushNotificationsAsync = async () => {
-      if (Constants.isDevice) {
-        const { status: existingStatus } = await Permissions.getAsync(
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Permissions.askAsync(
           Permissions.NOTIFICATIONS
         );
-        let finalStatus = existingStatus;
-        if (existingStatus !== "granted") {
-          const { status } = await Permissions.askAsync(
-            Permissions.NOTIFICATIONS
-          );
-          finalStatus = status;
-        }
-        if (finalStatus !== "granted") {
-          alert("Failed to get push token for push notification!");
-          return;
-        }
-       const token = await Notifications.getExpoPushTokenAsync();
-        console.log(token);
-        this.setState({ expoPushToken: token });
-      } else {
-        alert("Must use physical device for Push Notifications");
+        finalStatus = status;
       }
-  
-      if (Platform.OS === "android") {
-        Notifications.createChannelAndroidAsync("android", {
-          name: "android",
-          sound: true,
-          priority: "max",
-          vibrate: [0, 250, 250, 250],
-        });
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
+        return;
       }
-    };
-  
-    sendPushNotification = async () => {
-      this.setState(prevState => ({
-        isEnabled: !prevState.isEnabled
-      }));
-      console.log(this.state.isEnabled)
-
-if(!this.state.isEnabled) {
-        const message = {
-          to: this.state.expoPushToken,
-          sound: "default",
-          title: "VY",
-          body: "toget ankommer platformen om 10 min",
-          channelId: "android",
-          data: { data: "goes here" },
-          _displayInForeground: true,
-        };
-        
-    
-        const schedulingOptions = {
-          time: new Date().getTime()+(1000)
-        };
-        Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
-  
-}
-
+      const token = await Notifications.getExpoPushTokenAsync();
+      console.log(token);
+      this.setState({ expoPushToken: token });
+    } else {
+      alert("Must use physical device for Push Notifications");
     }
-  
-    _handleNotification = (notification) => {
-      Vibration.vibrate();
-      console.log(notification);
-      this.setState({ notification: notification });
-    };
-  
-  
 
+    if (Platform.OS === "android") {
+      Notifications.createChannelAndroidAsync("android", {
+        name: "android",
+        sound: true,
+        priority: "max",
+        vibrate: [0, 250, 250, 250],
+      });
+    }
+  };
 
+  sendPushNotification = async () => {
+    this.setState((prevState) => ({
+      isEnabled: !prevState.isEnabled,
+    }));
+    console.log(this.state.isEnabled);
+
+    if (!this.state.isEnabled) {
+      const message = {
+        to: this.state.expoPushToken,
+        sound: "default",
+        title: "VY",
+        body: "toget ankommer platformen om 10 min",
+        channelId: "android",
+        data: { data: "goes here" },
+        _displayInForeground: true,
+      };
+
+      const schedulingOptions = {
+        time: new Date().getTime() + 1000,
+      };
+      Notifications.scheduleLocalNotificationAsync(message, schedulingOptions);
+    }
+  };
+
+  _handleNotification = (notification) => {
+    Vibration.vibrate();
+    console.log(notification);
+    this.setState({ notification: notification });
+  };
 
   render() {
-    const {navigation} = this.props;
-  return (
-    <View style={styles.container}>
-      <Image
-        style={styles.logo}
-        source={require("../assets/images/vy.logo.final_primary.png")}
-      />
-
-      <TouchableOpacity style={styles.addBtn} title="Button">
-        <Button onPress={() => navigation.navigate("Share")} style={styles.button} title="Del din reise" color="#00957a" />
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.addBtn} title="Button">
-        <Button
-          style={styles.button}
-          title="Reiseinformasjon"
-          color="#00957a"
-          onPress={() => navigation.navigate("Map")}
+    const { navigation } = this.props;
+    return (
+      <View style={styles.container}>
+        <Image
+          style={styles.logo}
+          source={require("../assets/images/vy.logo.final_primary.png")}
         />
-      </TouchableOpacity>
 
-      <TouchableOpacity style={styles.addBtn} title="Button">
-        <Button
-          style={styles.button}
-          title="Din billett"
-          color="#00957a"
-          onPress={() => navigation.navigate("Ticket")}
-        />
-      </TouchableOpacity>
-      <View style={styles.textContainer}>
-      <Text>Skru på varsling 10 minutter</Text>
-      <Text>før toget ankommer plattform</Text>
-      <Switch
-        trackColor={{ false: "#767577", true: "#00957a" }}
-        thumbColor={this.state.isEnabled ? "#00957a" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={this.sendPushNotification}
-        value={this.state.isEnabled}
-        style={styles.switch}
-      />
-    </View>
+        <TouchableOpacity style={styles.addBtn} title="Button">
+          <Button
+            onPress={() => navigation.navigate("Share")}
+            style={styles.button}
+            title="Del din reise"
+            color="#00957a"
+          />
+        </TouchableOpacity>
 
-      
-    </View>
-  );
+        <TouchableOpacity style={styles.addBtn} title="Button">
+          <Button
+            style={styles.button}
+            title="Reiseinformasjon"
+            color="#00957a"
+            onPress={() => navigation.navigate("Map")}
+          />
+        </TouchableOpacity>
 
+        <TouchableOpacity style={styles.addBtn} title="Button">
+          <Button
+            style={styles.button}
+            title="Din billett"
+            color="#00957a"
+            onPress={() => navigation.navigate("Ticket")}
+          />
+        </TouchableOpacity>
+        <View style={styles.textContainer}>
+          <Text>Skru på varsling 10 minutter</Text>
+          <Text>før toget ankommer plattform</Text>
+          <Switch
+            trackColor={{ false: "#767577", true: "#00957a" }}
+            thumbColor={this.state.isEnabled ? "#00957a" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={this.sendPushNotification}
+            value={this.state.isEnabled}
+            style={styles.switch}
+          />
+        </View>
+        <View style={styles.textContainer}>
+          <Text>Skru på varsling når du kjører</Text>
+          <Text>forbi serverdigheter under reisen</Text>
+          <Switch
+            trackColor={{ false: "#767577", true: "#00957a" }}
+            thumbColor={this.state.isEnabled ? "#00957a" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            style={styles.switch}
+          />
+        </View>
+        <View style={styles.textContainer}>
+          <Text>Skru på varsling 10 minutter</Text>
+          <Text>før du annkommer destinasjon</Text>
+          <Switch
+            trackColor={{ false: "#767577", true: "#00957a" }}
+            thumbColor={this.state.isEnabled ? "#00957a" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            style={styles.switch}
+          />
+        </View>
+      </View>
+    );
+  }
 }
-}
-export default TravelScreen
+export default TravelScreen;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
@@ -169,7 +175,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     position: "relative",
-  
+    marginTop: 10,
     padding: 10,
     borderWidth: 3,
     borderColor: "#00957a",
@@ -178,26 +184,23 @@ const styles = StyleSheet.create({
   },
 
   switch: {
-    position:"absolute",
+    position: "absolute",
     top: 16,
-    right: 30
-
+    right: 30,
   },
 
   addBtn: {
     margin: 10,
     justifyContent: "center",
-    top: -150,
+    top: -120,
     width: 200,
   },
 
   logo: {
     position: "relative",
     alignItems: "center",
-    top: -170,
+    top: -150,
     width: 70,
     height: 70,
   },
 });
-
-
