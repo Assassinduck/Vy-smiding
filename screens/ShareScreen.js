@@ -9,61 +9,83 @@ import {
   Button,
   Linking,
   Alert,
-  TextInput
+  TextInput,
+  Share
 } from "react-native";
 
 import * as SMS from "expo-sms";
 
 
+
+
 class ShareScreen extends Component {
   state = {
-    VyMessage:
+    VySMSMessage:
       "Hei, trykk på denne linken:https://www.youtube.com/watch?v=dQw4w9WgXcQ for å se hvor jeg er på reisa",
     phoneNum: "",
     smsAvailable: undefined,
-    inputSmsBoolean: false
+    inputSmsBoolean: false,
   };
-  
+
+    onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          `${this.state.VySMSMessage}`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+
+  openMessanger = async () => {
+    Linking.canOpenURL();
+  };
 
   OpenSmS = async () => {
     console.log("fgwaad");
     if (this.state.smsAvailable) {
       const message = SMS.sendSMSAsync(
         this.state.phoneNum,
-        this.state.VyMessage
+        this.state.VySMSMessage
       );
     }
-  }
+  };
 
   renderInputField = () => {
     console.log("hello");
-    this.setState({ inputSmsBoolean: true })
-  }
+    this.setState({ inputSmsBoolean: true });
+  };
 
   setPhoneNum = (phoneNumber) => {
     console.log(phoneNumber);
     this.setState({ phoneNum: phoneNumber });
-    console.log(this.state.phoneNum)
-  }
-
-
-    OpenFacebookMessanger = async () => {
-    //Linking.openURL('http://m.me?ref=messages/new');
-  
-    Linking.openURL('http://m.me');
+    console.log(this.state.phoneNum);
   };
-  
-   OpenMail = async () => {
-    Linking.openURL('mailto:?subject=Delt reise&body=Hei, trykk på denne linken: https://www.youtube.com/watch?v=dQw4w9WgXcQ for å se hvor jeg er på reisen');
-  };
-  
 
- 
+  OpenFacebookMessanger = async () => {
+    Linking.openURL("http://m.me");
+  };
+
+  OpenMail = async () => {
+    Linking.openURL(
+      "mailto:?subject=Delt reise&body=Hei, trykk på denne linken: https://www.youtube.com/watch?v=dQw4w9WgXcQ for å se hvor jeg er på reisen"
+    );
+  };
+
   componentDidUpdate() {
-    console.log(this.state.inputSmsBoolean)
+    console.log(this.state.inputSmsBoolean);
   }
-
-
 
   componentDidMount = async () => {
     const isAvailableAsync = await SMS.isAvailableAsync();
@@ -71,9 +93,8 @@ class ShareScreen extends Component {
       this.setState({
         smsAvailable: true,
       });
-    };
-  }
-
+    }
+  };
 
   render() {
     return (
@@ -91,7 +112,7 @@ class ShareScreen extends Component {
             class="button"
             title="Messenger"
             color="#00C6FF"
-            onPress={() => this.OpenFacebookMessanger()}
+            onPress={this._shareLinkWithShareDialog}
           />
         </TouchableOpacity>
 
@@ -120,6 +141,15 @@ class ShareScreen extends Component {
           title="Mail" 
           color="#ea4335" 
           onPress={() => this.OpenMail()}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.addButton} title="Button">
+          <Button
+            class="button"
+            title="Share"
+            color="#3b5998"
+            onPress={this.onShare}
           />
         </TouchableOpacity>
       </View>
