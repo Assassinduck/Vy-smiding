@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
 descriptionText:{
 top: -100,
 fontSize: 16,
-fontFamily: 'sans-serif',
 textAlign: "center",
 margin: 10
 },
@@ -108,13 +107,6 @@ margin: 10
   margin: 10,
   justifyContent: "center",
   top: -50,
-  width: 200,
-  
-},
- addButton1: {
-  margin: 10,
-  justifyContent: "center",
-  top: -200,
   width: 200,
   
 }
