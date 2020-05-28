@@ -7,12 +7,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   Button,
+  Vibration
 } from "react-native";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 
-//class TravelNotification extends Component{
 
 
   
@@ -75,34 +75,26 @@ class TravelScreen extends Component{
       this.setState(prevState => ({
         isEnabled: !prevState.isEnabled
       }));
+      console.log(this.state.isEnabled)
 
-      const message = {
-        to: this.state.expoPushToken,
-        sound: "default",
-        title: "VY",
-        body: "toget ankommer platformen om 10 min",
-        channelId: "android",
-        data: { data: "goes here" },
-        _displayInForeground: true,
-      };
-      
-      // const response = await fetch("https://exp.host/--/api/v2/push/send", {
-      //   method: "POST",
-      //   headers: {
-      //     Accept: "application/json",
-      //     "Accept-encoding": "gzip, deflate",
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(message),
-  
+if(!this.state.isEnabled) {
+        const message = {
+          to: this.state.expoPushToken,
+          sound: "default",
+          title: "VY",
+          body: "toget ankommer platformen om 10 min",
+          channelId: "android",
+          data: { data: "goes here" },
+          _displayInForeground: true,
+        };
         
-      // });
+    
+        const schedulingOptions = {
+          time: new Date().getTime()+(1000)
+        };
+        Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
   
-      const schedulingOptions = {
-        time: new Date().getTime()+(1000)
-      };
-      Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
-
+}
 
     }
   
@@ -114,14 +106,10 @@ class TravelScreen extends Component{
   
   
 
-//   const [isEnabled, setIsEnabled] = useState(false);
-//   const toggleSwitch = () => {
-//     setIsEnabled(previousState => !previousState);
 
-     
-// }
 
-  render(){
+  render() {
+    const {navigation} = this.props;
   return (
     <View style={styles.container}>
       <Image
@@ -157,7 +145,7 @@ class TravelScreen extends Component{
         trackColor={{ false: "#767577", true: "#00957a" }}
         thumbColor={this.state.isEnabled ? "#00957a" : "#f4f3f4"}
         ios_backgroundColor="#3e3e3e"
-        onValueChange={this.sendPushNotification()}
+        onValueChange={this.sendPushNotification}
         value={this.state.isEnabled}
         style={styles.switch}
       />
