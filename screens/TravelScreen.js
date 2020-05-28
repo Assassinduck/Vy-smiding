@@ -16,10 +16,24 @@ import Constants from "expo-constants";
 class TravelScreen extends Component {
   state = {
     isEnabled: false,
+    isEnabledArrival: false,
+    isEnabledAttractions: false,
     mounted: false,
     expoPushToken: "",
     notification: {},
   };
+
+  valueChangeArrival(){
+    this.setState((prevState) => ({
+      isEnabledArrival: !prevState.isEnabledArrival,
+    }));
+  };
+
+  valueChangeAttractions(){
+    this.setState((prevState) => ({
+      isEnabledAttractions: !prevState.isEnabledAttractions,
+    }));
+  }
 
   componentDidMount() {
     this.registerForPushNotificationsAsync();
@@ -144,8 +158,10 @@ class TravelScreen extends Component {
           <Text>forbi serverdigheter under reisen</Text>
           <Switch
             trackColor={{ false: "#767577", true: "#00957a" }}
-            thumbColor={this.state.isEnabled ? "#00957a" : "#f4f3f4"}
+            thumbColor={this.state.isEnabledAttractions ? "#00957a" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
+            onValueChange={this.valueChangeAttractions}
+            value={this.state.isEnabledAttractions}
             style={styles.switch}
           />
         </View>
@@ -154,8 +170,10 @@ class TravelScreen extends Component {
           <Text>før du annkommer destinasjon</Text>
           <Switch
             trackColor={{ false: "#767577", true: "#00957a" }}
-            thumbColor={this.state.isEnabled ? "#00957a" : "#f4f3f4"}
+            thumbColor={this.state.isEnabledArrival ? "#00957a" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
+            onValueChange={this.valueChangeArrival}
+            value={this.state.isEnabledArrival}
             style={styles.switch}
           />
         </View>
