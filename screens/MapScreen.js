@@ -27,7 +27,6 @@ const coordinates = [
     latitude: 60.390022,
     longitude: 5.334514,
   },
-  {},
 ];
 
 const GOOGLE_MAPS_APIKEY = "AIzaSyB3ReUNZCJIJnlpNT-1UchzSaX5gpJdGT0";
@@ -172,15 +171,26 @@ class MapScreen extends React.Component {
   }
 
   animate() {
+    this.state.timer=0
 
     this.state.body="ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer";
-    this.state.timer=14;
+    this.state.timer+=14;
     this.state.link="https://www.drammen.no/oppforinger/drammenselva/"
     this.sendPushNotification();
 
     this.state.body="Til høyre ligger tyrifjorden. Trykk her får å lære mer";
     this.state.timer+=13;
     this.state.link="https://snl.no/Tyrifjorden";
+    this.sendPushNotification();
+
+    this.state.body="Vi er nå på det høyeste punktet på reisen!";
+    this.state.timer=65;
+    this.state.link="https://www.visitnorway.com/places-to-go/eastern-norway/geilo/listings-geilo/finse-1222/175947/"
+    this.sendPushNotification();
+
+    this.state.body="Nå begynner vi å nærme oss Bergen, gjør klar for avstigning"
+    this.state.timer=95;
+    this.state.link="https://www.visitbergen.com/"
     this.sendPushNotification();
 
     const coordinate1 = this.state.Origin;
@@ -388,11 +398,8 @@ class MapScreen extends React.Component {
     ];
 
     coordinate0.timing(newCoordinate[0]).start();
-
     coordinate1.timing(newCoordinate[1]).start();
-
     coordinate2.timing(newCoordinate[2]).start();
-
     coordinate3.timing(newCoordinate[3]).start();
     coordinate4.timing(newCoordinate[4]).start();
     coordinate5.timing(newCoordinate[5]).start();
@@ -410,9 +417,6 @@ class MapScreen extends React.Component {
     coordinate17.timing(newCoordinate[17]).start();
     coordinate18.timing(newCoordinate[18]).start();
     coordinate19.timing(newCoordinate[19]).start();
-
-
-
   }
 
   componentDidMount() {
