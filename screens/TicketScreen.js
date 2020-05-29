@@ -34,35 +34,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  headerText: {
-    position: "absolute",
-    top: -20,
-    fontSize: 30,
-  },
-  alertBtn: {
-    position: "absolute",
-    borderRadius: 50,
-    top: 20,
-    right: 10,
-  },
-  textContainer: {
-    position: "absolute",
-    top: 35,
-    padding: 10,
-    borderWidth: 3,
-    borderColor: "#00957a",
-    borderRadius: 15,
-    width: 350,
-  },
+
   ticketCode: {
     position: "absolute",
-    top: 150,
+    top: 70,
     width: 300,
     height: 300,
   },
   ticketText: {
     position: "relative",
-    top: 190,
+    top: 100,
     padding: 10,
   },
 });

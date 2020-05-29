@@ -40,7 +40,7 @@ export default function HomeScreen({ navigation }) {
               style={styles.button}
               title="Se informasjon om reisen"
               color="#00957a"
-              onPress={() => navigation.navigate("Travel")}
+              onPress={() => navigation.navigate("Reiseinformasjon")}
             />
           </TouchableOpacity>
         </View>

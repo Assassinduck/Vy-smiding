@@ -10,7 +10,7 @@ import useCachedResources from "./hooks/useCachedResources";
 import LinkingConfiguration from "./navigation/LinkingConfiguration";
 import TravelScreen from "./screens/TravelScreen";
 import MapScreen from "./screens/MapScreen";
-import shareScreen from './screens/ShareScreen';
+import shareScreen from "./screens/ShareScreen";
 
 const Stack = createStackNavigator();
 
@@ -25,11 +25,11 @@ export default function App(props) {
         {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
         <NavigationContainer linking={LinkingConfiguration}>
           <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Ticket" component={TicketScreen} />
-            <Stack.Screen name="Travel" component={TravelScreen} />
-            <Stack.Screen name="Share" component={shareScreen} />
-            <Stack.Screen name="Map" component={MapScreen} />
+            <Stack.Screen name="Mine reiser" component={HomeScreen} />
+            <Stack.Screen name="Billett" component={TicketScreen} />
+            <Stack.Screen name="Reiseinformasjon" component={TravelScreen} />
+            <Stack.Screen name="Del din reise" component={shareScreen} />
+            <Stack.Screen name="Reiseoversikt" component={MapScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>

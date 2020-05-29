@@ -23,13 +23,13 @@ class TravelScreen extends Component {
     notification: {},
   };
 
-  valueChangeArrival(){
+  valueChangeArrival() {
     this.setState((prevState) => ({
       isEnabledArrival: !prevState.isEnabledArrival,
     }));
-  };
+  }
 
-  valueChangeAttractions(){
+  valueChangeAttractions() {
     this.setState((prevState) => ({
       isEnabledAttractions: !prevState.isEnabledAttractions,
     }));
@@ -117,7 +117,7 @@ class TravelScreen extends Component {
 
         <TouchableOpacity style={styles.addBtn} title="Button">
           <Button
-            onPress={() => navigation.navigate("Share")}
+            onPress={() => navigation.navigate("Del din reise")}
             style={styles.button}
             title="Del din reise"
             color="#00957a"
@@ -127,9 +127,9 @@ class TravelScreen extends Component {
         <TouchableOpacity style={styles.addBtn} title="Button">
           <Button
             style={styles.button}
-            title="Reiseinformasjon"
+            title="Reiseoversikt"
             color="#00957a"
-            onPress={() => navigation.navigate("Map")}
+            onPress={() => navigation.navigate("Reiseoversikt")}
           />
         </TouchableOpacity>
 
@@ -138,7 +138,7 @@ class TravelScreen extends Component {
             style={styles.button}
             title="Din billett"
             color="#00957a"
-            onPress={() => navigation.navigate("Ticket")}
+            onPress={() => navigation.navigate("Billett")}
           />
         </TouchableOpacity>
         <View style={styles.textContainer}>
@@ -154,7 +154,7 @@ class TravelScreen extends Component {
           />
         </View>
         <View style={styles.textContainer}>
-          <Text>Skru på varsling når du kjører</Text>
+          <Text>Skru på varslinger når du kjører</Text>
           <Text>forbi serverdigheter under reisen</Text>
           <Switch
             trackColor={{ false: "#767577", true: "#00957a" }}
