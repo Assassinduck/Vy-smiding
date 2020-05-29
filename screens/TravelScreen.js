@@ -23,17 +23,17 @@ class TravelScreen extends Component {
     notification: {},
   };
 
-  valueChangeArrival= () => {
+  valueChangeArrival = () => {
     this.setState((prevState) => ({
       isEnabledArrival: !prevState.isEnabledArrival,
     }));
-  }
+  };
 
-  valueChangeAttractions= () =>{
+  valueChangeAttractions = () => {
     this.setState((prevState) => ({
       isEnabledAttractions: !prevState.isEnabledAttractions,
     }));
-  }
+  };
 
   componentDidMount() {
     this.registerForPushNotificationsAsync();
@@ -154,8 +154,8 @@ class TravelScreen extends Component {
           />
         </View>
         <View style={styles.textContainer}>
-          <Text>Skru på varslinger når du kjører</Text>
-          <Text>forbi serverdigheter under reisen</Text>
+          <Text>Skru på varslinger når toget passerer</Text>
+          <Text>passerer serverdigheter under reisen</Text>
           <Switch
             trackColor={{ false: "#767577", true: "#00957a" }}
             thumbColor={this.state.isEnabledAttractions ? "#00957a" : "#f4f3f4"}
@@ -210,14 +210,14 @@ const styles = StyleSheet.create({
   addBtn: {
     margin: 10,
     justifyContent: "center",
-    top: -120,
+    top: -50,
     width: 200,
   },
 
   logo: {
     position: "relative",
     alignItems: "center",
-    top: -150,
+    top: -70,
     width: 70,
     height: 70,
   },
