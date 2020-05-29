@@ -155,7 +155,7 @@ class TravelScreen extends Component {
         </View>
         <View style={styles.textContainer}>
           <Text>Skru på varslinger når toget passerer</Text>
-          <Text>passerer serverdigheter under reisen</Text>
+          <Text>serverdigheter under reisen</Text>
           <Switch
             trackColor={{ false: "#767577", true: "#00957a" }}
             thumbColor={this.state.isEnabledAttractions ? "#00957a" : "#f4f3f4"}
