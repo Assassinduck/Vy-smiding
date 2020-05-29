@@ -23,13 +23,13 @@ class TravelScreen extends Component {
     notification: {},
   };
 
-  valueChangeArrival() {
+  valueChangeArrival= () => {
     this.setState((prevState) => ({
       isEnabledArrival: !prevState.isEnabledArrival,
     }));
   }
 
-  valueChangeAttractions() {
+  valueChangeAttractions= () =>{
     this.setState((prevState) => ({
       isEnabledAttractions: !prevState.isEnabledAttractions,
     }));
