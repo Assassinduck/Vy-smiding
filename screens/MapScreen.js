@@ -187,9 +187,9 @@ class MapScreen extends React.Component {
     this.state.link="https://www.visitnorway.com/places-to-go/eastern-norway/geilo/listings-geilo/finse-1222/175947/"
     this.sendPushNotification();
 
-    this.state.body="Nå begynner vi å nærme oss Bergen, gjør klar for avstigning"
+    this.state.body="Nå begynner vi å nærme oss Bergen, gjør klar for avstigning, trykk her for å bestille taxi"
     this.state.timer=95;
-    this.state.link="https://www.visitbergen.com/"
+    this.state.link="https://www.bergentaxi.no/bestill-taxi/"
     this.sendPushNotification();
 
     const coordinate1 = this.state.Origin;
