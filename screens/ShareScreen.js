@@ -7,53 +7,51 @@ import {
   TouchableOpacity,
   View,
   Button,
+  Linking,
   Alert,
-  TextInput
+  TextInput,
+  Share
 } from "react-native";
-import * as Linking from "expo-linking";
+
 import * as SMS from "expo-sms";
+
 
 
 
 class ShareScreen extends Component {
   state = {
-    VyMessage:
+    VySMSMessage:
       "Hei, trykk på denne linken:https://www.youtube.com/watch?v=dQw4w9WgXcQ for å se hvor jeg er på reisa",
-    phoneNum: "95839305",
+    phoneNum: "",
     smsAvailable: undefined,
-    inputSmsBoolean: false
+    inputSmsBoolean: false,
   };
 
-  openMessanger = async () => {
-    Linking.canOpenURL()
-  }
-
-  OpenSmS = async () => {
-    console.log("fgwaad");
-    if (this.state.smsAvailable) {
-      const message = SMS.sendSMSAsync(
-        this.state.phoneNum,
-        this.state.VyMessage
-      );
+    onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          `${this.state.VySMSMessage}`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
     }
-  }
+  };
 
-  renderInputField = () => {
-    console.log("hello");
-    this.setState({ inputSmsBoolean: true })
-  }
 
-  setPhoneNum = (phoneNumber) => {
-    console.log(phoneNumber);
-    this.setState({ phoneNum: phoneNumber });
-    console.log(this.state.phoneNum)
-  }
 
   componentDidUpdate() {
-    console.log(this.state.inputSmsBoolean)
+    console.log(this.state.inputSmsBoolean);
   }
-
-
 
   componentDidMount = async () => {
     const isAvailableAsync = await SMS.isAvailableAsync();
@@ -61,34 +59,28 @@ class ShareScreen extends Component {
       this.setState({
         smsAvailable: true,
       });
-    };
-  }
+    }
+  };
 
   render() {
     return (
+    
+    
       <View style={styles.container}>
-        <TouchableOpacity style={styles.addButton} title="Button">
-          <Button class="button" title="Messenger" color="#00C6FF" />
-        </TouchableOpacity>
+
+       <Text style={styles.descriptionText}>Ønsker du å dele reiseruten med en venn?</Text>
+        <Text style={styles.descriptionText}>Send reisekoden til en bekjent, slik at de får live-oppdateringer på hvor du befinner deg på reisen.</Text>
+        <Text style={styles.descriptionText}> Del din kode via:</Text>
+        
+      
 
         <TouchableOpacity style={styles.addButton} title="Button">
-          {this.state.smsAvailable && (
-            <Button
-              class="button"
-              title="SMS"
-              color="#80046b"
-              onPress={() => this.OpenSmS()}
-            />
-          )}
-          {this.state.inputSmsBoolean && (
-            <TextInput
-              onSubmitEditing={(text) => this.setPhoneNum(text)}
-            ></TextInput>
-          )}
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.addButton} title="Button">
-          <Button class="button" title="Mail" color="#ea4335" />
+          <Button
+            class="button"
+            title="Del reisen din"
+            color="#00957a"
+            onPress={this.onShare}
+          />
         </TouchableOpacity>
       </View>
     );
@@ -105,18 +97,16 @@ const styles = StyleSheet.create({
   flex: 1,
   height: 100,
 },
-
+descriptionText:{
+top: -100,
+fontSize: 16,
+textAlign: "center",
+margin: 10
+},
  addButton: {
   margin: 10,
   justifyContent: "center",
   top: -50,
-  width: 200,
-  
-},
- addButton1: {
-  margin: 10,
-  justifyContent: "center",
-  top: -200,
   width: 200,
   
 }
