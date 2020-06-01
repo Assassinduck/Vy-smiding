@@ -23,17 +23,19 @@ class TravelScreen extends Component {
     notification: {},
   };
 
-  valueChangeArrival = () => {
+  valueChangeArrival = () =>{
     this.setState((prevState) => ({
       isEnabledArrival: !prevState.isEnabledArrival,
     }));
+    console.log(!this.state.isEnabledArrival);
   };
 
-  valueChangeAttractions = () => {
+  valueChangeAttractions = () =>{
     this.setState((prevState) => ({
       isEnabledAttractions: !prevState.isEnabledAttractions,
     }));
-  };
+    console.log(!this.state.isEnabledAttractions)
+  }
 
   componentDidMount() {
     this.registerForPushNotificationsAsync();
@@ -78,11 +80,11 @@ class TravelScreen extends Component {
 
   sendPushNotification = async () => {
     this.setState((prevState) => ({
-      isEnabled: !prevState.isEnabled,
+      isArrivalEnabled: !prevState.isArrivalEnabled,
     }));
-    console.log(this.state.isEnabled);
+    console.log(this.state.isArrivalEnabled);
 
-    if (!this.state.isEnabled) {
+    if (!this.state.isArrivalEnabled) {
       const message = {
         to: this.state.expoPushToken,
         sound: "default",
@@ -146,10 +148,10 @@ class TravelScreen extends Component {
           <Text>før toget ankommer plattform</Text>
           <Switch
             trackColor={{ false: "#767577", true: "#00957a" }}
-            thumbColor={this.state.isEnabled ? "#00957a" : "#f4f3f4"}
+            thumbColor={this.state.isArrivalEnabled ? "#00957a" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={this.sendPushNotification}
-            value={this.state.isEnabled}
+            value={this.state.isArrivalEnabled}
             style={styles.switch}
           />
         </View>

@@ -16,6 +16,7 @@ import { ProviderPropType, Marker, AnimatedRegion } from "react-native-maps";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
+import newCoordinates from "../constants/animate"
 
 const coordinates = [
   {
@@ -168,29 +169,50 @@ class MapScreen extends React.Component {
       link: "",
     };
   }
+     
 
-  animate() {
-    this.state.timer=0
-
-    this.state.body="ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer";
-    this.state.timer=14;
-    this.state.link="https://www.drammen.no/oppforinger/drammenselva/"
+  animateDrammen = async () => {
+    this.setState({
+      body:
+        "ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer",
+      timer: 14,
+      link: "https://www.drammen.no/oppforinger/drammenselva/",
+    });
     this.sendPushNotification();
+  }
 
-    this.state.body="Til høyre ligger tyrifjorden. Trykk her får å lære mer";
-    this.state.timer=27;
-    this.state.link="https://snl.no/Tyrifjorden";
+  animateTyrifjorden = async () => {
+    this.setState( {
+      body: "Til høyre ligger tyrifjorden. Trykk her får å lære mer",
+      timer:  13,
+      link: "https://snl.no/Tyrifjorden",
+    })
     this.sendPushNotification();
+  }
+  animateFinse = async () => {
+    this.setState({
+      body: "Vi er nå på det høyeste punktet på reisen!",
+      timer: 38,
+      link: "https://www.visitnorway.com/places-to-go/eastern-norway/geilo/listings-geilo/finse-1222/175947/",
+    })
+      this.sendPushNotification();
+  }
+  animateBergen = async () => {
+    this.setState({
+      body: "Nå begynner vi å nærme oss Bergen, gjør klar for avstigning",
+      timer: 30,
+      link: "https://www.visitbergen.com/",
+    });
+      this.sendPushNotification();
+  }
 
-    this.state.body="Vi er nå på det høyeste punktet på reisen!";
-    this.state.timer=65;
-    this.state.link="https://www.visitnorway.com/places-to-go/eastern-norway/geilo/listings-geilo/finse-1222/175947/"
-    this.sendPushNotification();
 
-    this.state.body="Nå begynner vi å nærme oss Bergen, gjør klar for avstigning, trykk her for å bestille taxi"
-    this.state.timer=95;
-    this.state.link="https://www.bergentaxi.no/bestill-taxi/"
-    this.sendPushNotification();
+  animate = async () => {
+    this.setState({
+      timer: 0
+    })
+
+    
 
     const coordinate1 = this.state.Origin;
     const coordinate0 = this.state.Sandvika;
@@ -212,210 +234,42 @@ class MapScreen extends React.Component {
     const coordinate17 = this.state.Voss;
     const coordinate18 = this.state.Dale;
     const coordinate19 = this.state.Arna;
-    const coordinate20 = this.state.Bergen;
 
-    const newCoordinate = [
-      /*Asker */
-      {
-        latitude: 59.834079,
-        longitude: 10.435004,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 5000,
-      },
-      /*Sandvika */
-      {
-        latitude: 59.892806,
-        longitude: 10.526087,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-      },
-      /*Drammen */
-      {
-        latitude: 59.740068,
-        longitude: 10.20486,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 10000,
-      },
-      /*Hokksund */
-      {
-        latitude: 59.767305,
-        longitude: 9.910776,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 15000,
-      },
-      /*Vikersund*/
-      {
-        latitude: 59.969203,
-        longitude: 9.998008,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 20000,
-      },
-      /*Hønefoss*/
-      {
-        latitude: 60.169167,
-        longitude: 10.24957,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 25000,
-      },
-      /*Flå*/
-      {
-        latitude: 60.432071,
-        longitude: 9.473048,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 30000,
-      },
-      /*Nes*/
-      {
-        latitude: 60.576714,
-        longitude: 9.11325,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 35000,
-      },
-      /*Gol*/
-      {
-        latitude: 60.699042,
-        longitude: 8.97049,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 40000,
-      },
-      /*Ål*/
-      {
-        latitude: 60.626526,
-        longitude: 8.561386,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 45000,
-      },
-      /*Geilo*/
-      {
-        latitude: 60.534628,
-        longitude: 8.206693,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 50000,
-      },
-      /*Ustaoset*/
-      {
-        latitude: 60.496114,
-        longitude: 8.045866,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 55000,
-      },
-      /* Haugastøl*/
-      {
-        latitude: 60.511394,
-        longitude: 7.869734,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 60000,
-      },
-      /* Finse*/
-      {
-        latitude: 60.601945,
-        longitude: 7.503767,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 65000,
-      },
-      /* Hallingskeid*/
-      {
-        latitude: 60.668026,
-        longitude: 7.252333,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 70000,
-      },
-      /* Myrdal*/
-      {
-        latitude: 60.743504,
-        longitude: 7.129848,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 75000,
-      },
-      /* Voss*/
-      {
-        latitude: 60.629252,
-        longitude: 6.410842,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 80000,
-      },
-      /* Dale*/
-      {
-        latitude: 60.586441,
-        longitude: 5.815096,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 85000,
-      },
-      /* Arna */
-      {
-        latitude: 60.420482,
-        longitude: 5.467597,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 90000,
-      },
-      /* Bergen */
-      {
-        latitude: 60.390022,
-        longitude: 5.334514,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-        duration: 5000,
-        delay: 95000,
-      },
-    ];
 
-    coordinate0.timing(newCoordinate[0]).start();
-    coordinate1.timing(newCoordinate[1]).start();
-    coordinate2.timing(newCoordinate[2]).start();
-    coordinate3.timing(newCoordinate[3]).start();
-    coordinate4.timing(newCoordinate[4]).start();
-    coordinate5.timing(newCoordinate[5]).start();
-    coordinate6.timing(newCoordinate[6]).start();
-    coordinate7.timing(newCoordinate[7]).start();
-    coordinate8.timing(newCoordinate[8]).start();
-    coordinate9.timing(newCoordinate[9]).start();
-    coordinate10.timing(newCoordinate[10]).start();
-    coordinate11.timing(newCoordinate[11]).start();
-    coordinate12.timing(newCoordinate[12]).start();
-    coordinate13.timing(newCoordinate[13]).start();
-    coordinate14.timing(newCoordinate[14]).start();
-    coordinate15.timing(newCoordinate[15]).start();
-    coordinate16.timing(newCoordinate[16]).start();
-    coordinate17.timing(newCoordinate[17]).start();
-    coordinate18.timing(newCoordinate[18]).start();
-    coordinate19.timing(newCoordinate[19]).start();
+
+
+    this.animateDrammen()
+      .then(() => {
+        this.animateTyrifjorden();
+      })
+      .then(() => {
+        this.animateFinse();
+      })
+      .then(() => {
+        this.animateBergen();
+      });
+
+
+    coordinate0.timing(newCoordinates[0]).start();
+    coordinate1.timing(newCoordinates[1]).start();
+    coordinate2.timing(newCoordinates[2]).start();
+    coordinate3.timing(newCoordinates[3]).start();
+    coordinate4.timing(newCoordinates[4]).start();
+    coordinate5.timing(newCoordinates[5]).start();
+    coordinate6.timing(newCoordinates[6]).start();
+    coordinate7.timing(newCoordinates[7]).start();
+    coordinate8.timing(newCoordinates[8]).start();
+    coordinate9.timing(newCoordinates[9]).start();
+    coordinate10.timing(newCoordinates[10]).start();
+    coordinate11.timing(newCoordinates[11]).start();
+    coordinate12.timing(newCoordinates[12]).start();
+    coordinate13.timing(newCoordinates[13]).start();
+    coordinate14.timing(newCoordinates[14]).start();
+    coordinate15.timing(newCoordinates[15]).start();
+    coordinate16.timing(newCoordinates[16]).start();
+    coordinate17.timing(newCoordinates[17]).start();
+    coordinate18.timing(newCoordinates[18]).start();
+    coordinate19.timing(newCoordinates[19]).start();
   }
 
   componentDidMount() {
@@ -511,7 +365,7 @@ class MapScreen extends React.Component {
             longitude: 10.757933,
           }}
         >
-          <Marker coordinate={coordinates[0]} />
+          <Marker coordinate={newCoordinates[0]} />
           <Marker coordinate={coordinates[1]} />
 
           <MapView.Marker.Animated
