@@ -178,34 +178,54 @@ class MapScreen extends React.Component {
       timer: 14,
       link: "https://www.drammen.no/oppforinger/drammenselva/",
     });
+        this.sendPushNotification()
+  }
+
+
+  animateTyrifjorden = async () => {
+    this.setState({
+      
+      body:"Til høyre ligger tyrifjorden. Trykk her får å lære mer",
+      timer:27,
+      link: "https://snl.no/Tyrifjorden",
+
+    })
+        this.sendPushNotification()
+  }
+  
+animateFinse = async () => {
+  this.setState({
+    body:"Vi er nå på det høyeste punktet på reisen!",
+    timer:65,
+    link:"https://www.visitnorway.com/places-to-go/eastern-norway/geilo/listings-geilo/finse-1222/175947/"
+  })
+      this.sendPushNotification();
+  }
+
+animateBergen = async () => {
+  this.setState({
+      body:"Nå begynner vi å nærme oss Bergen, gjør klar for avstigning, trykk her for å bestille taxi",
+    timer:95,
+    link:"https://www.bergentaxi.no/bestill-taxi/",
+  })
+      this.sendPushNotification();
 
   }
-  animate() {
+
+
+  animate = () => {
     this.state.timer=0
 
-    this.state.body="ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer";
-    this.state.timer=14;
-    this.state.link="https://www.drammen.no/oppforinger/drammenselva/"
-    this.sendPushNotification();
 
-    this.state.body="Til høyre ligger tyrifjorden. Trykk her får å lære mer";
-    this.state.timer=27;
-    this.state.link="https://snl.no/Tyrifjorden";
-    this.sendPushNotification();
 
-    this.state.body="Vi er nå på det høyeste punktet på reisen!";
-    this.state.timer=65;
-    this.state.link="https://www.visitnorway.com/places-to-go/eastern-norway/geilo/listings-geilo/finse-1222/175947/"
-    this.sendPushNotification();
+
+
 
   animate = () => {
     this.setState({
       timer: 0,
     });
-    this.state.body="Nå begynner vi å nærme oss Bergen, gjør klar for avstigning, trykk her for å bestille taxi"
-    this.state.timer=95;
-    this.state.link="https://www.bergentaxi.no/bestill-taxi/"
-    this.sendPushNotification();
+    
 
     const coordinate1 = this.state.Origin;
     const coordinate0 = this.state.Sandvika;
@@ -242,10 +262,7 @@ class MapScreen extends React.Component {
 
     coordinate0.timing(newCoordinates[0]).start()
     coordinate1.timing(newCoordinates[1]).start();
-    coordinate2.timing(newCoordinates[2]).start(() => {
-      this.setState({ timer: 4 })
-      this.sendPushNotification()
-    });
+    coordinate2.timing(newCoordinates[2]).start();
     coordinate3.timing(newCoordinates[3]).start();
     coordinate4.timing(newCoordinates[4]).start();
     coordinate5.timing(newCoordinates[5]).start();
