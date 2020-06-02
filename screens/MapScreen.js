@@ -213,9 +213,7 @@ class MapScreen extends React.Component {
   }
 
 
-  animate = () => {
-    this.state.timer = 0
-
+ 
 
 
 
@@ -554,7 +552,7 @@ class MapScreen extends React.Component {
       console.log(notification);
       this.setState({ notification: notification });
     };
-
+  
     render() {
       return (
         <View style={styles.container}>
@@ -676,7 +674,7 @@ class MapScreen extends React.Component {
       );
     }
   }
-}
+
 // AnimatedMarkers.propTypes = {
 //   provider: ProviderPropType,
 // };
