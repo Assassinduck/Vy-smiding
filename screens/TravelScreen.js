@@ -12,6 +12,7 @@ import {
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
+import * as firebase from '../firebase';
 
 class TravelScreen extends Component {
   state = {
@@ -37,6 +38,9 @@ class TravelScreen extends Component {
 
   componentDidMount() {
     this.registerForPushNotificationsAsync();
+    //const db = firebase.();
+
+    
 
     this._notificationSubscription = Notifications.addListener(
       this._handleNotification
