@@ -38,7 +38,7 @@ class TravelScreen extends Component {
 
   componentDidMount() {
     this.registerForPushNotificationsAsync();
-    const db = firebase.();
+    //const db = firebase.();
 
     
 

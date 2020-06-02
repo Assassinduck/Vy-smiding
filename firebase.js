@@ -1,4 +1,4 @@
-const firebase = require("firebase");
+//const firebase = require("firebase");
 // Required for side-effects
 require("firebase/firestore");
 
@@ -6,7 +6,9 @@ require("firebase/firestore");
 
 
 
+import firebase from "firebase/app"
 
+import "firebase/firestore"
 
   const firebaseConfig = {
     apiKey: "AIzaSyBb0BppJgB9n9FV4ODI2un2c0-PQ3dBSys",
@@ -26,5 +28,6 @@ require("firebase/firestore");
 
 
 
+export const firestore = firebase.firestore()
 
-export default !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
+export default firebase

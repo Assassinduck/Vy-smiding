@@ -16,8 +16,10 @@ import { ProviderPropType, Marker, AnimatedRegion } from "react-native-maps";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
-import firebase from "@firebase/app";
+import firebase from "../firebase";
+import firestore from "@firebase/app"
 import "@firebase/firestore";
+import * as firebases from '../firebase';
 
 const coordinates = [
   {
@@ -30,7 +32,11 @@ const coordinates = [
   },
 ];
 
+const db= firebase.firestore();
+
 const GOOGLE_MAPS_APIKEY = "AIzaSyB3ReUNZCJIJnlpNT-1UchzSaX5gpJdGT0";
+
+
 
 class MapScreen extends React.Component {
 
@@ -211,13 +217,6 @@ class MapScreen extends React.Component {
     this.sendPushNotification();
 
   }
-
-
- 
-
-
-
-
 
     animate = () => {
       this.setState({
@@ -485,9 +484,26 @@ class MapScreen extends React.Component {
 
     componentDidMount = () => {
       this.registerForPushNotificationsAsync();
-      const ref = firebase.firestore()
+      //console.log(db)
+      var wholeData = []
 
-      console.log(ref);
+    db.collection('Coordinates').get()
+    .then(snapshot => {
+      snapshot.forEach(doc => {
+        // console.log(doc.id, '=>', doc.data());
+        // console.log(doc.data().name + doc.data().age);
+        // console.log(doc.data());
+        wholeData.push(doc.data())
+      });
+      console.log("data" + wholeData)
+      res.send(wholeData)
+    })
+    .catch(error => {
+      console.log('Error!', error);
+    })
+
+
+      //console.log(db.collection('Coordinates').get());
 
       this._notificationSubscription = Notifications.addListener(
         this._handleNotification

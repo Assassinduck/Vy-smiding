@@ -4,6 +4,7 @@ import * as React from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import TicketScreen from "./screens/TicketScreen";
+//import {decode, encode} from 'base-64'
 
 import useCachedResources from "./hooks/useCachedResources";
 
@@ -45,3 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
 });
+
+// if (!global.btoa) {  global.btoa = encode }
+
+// if (!global.atob) { global.atob = decode }
