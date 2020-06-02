@@ -17,6 +17,7 @@ import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 import newCoordinates from "../constants/animate"
+import animate from "./TestAnim"
 
 const coordinates = [
   {
@@ -32,10 +33,9 @@ const coordinates = [
 const GOOGLE_MAPS_APIKEY = "AIzaSyB3ReUNZCJIJnlpNT-1UchzSaX5gpJdGT0";
 
 class MapScreen extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
+
+    state = {
       Origin: new AnimatedRegion({
         latitude: 59.911491,
         longitude: 10.757933,
@@ -168,7 +168,6 @@ class MapScreen extends React.Component {
       timer: 0,
       link: "",
     };
-  }
      
 
   animateDrammen = async () => {
@@ -178,7 +177,7 @@ class MapScreen extends React.Component {
       timer: 14,
       link: "https://www.drammen.no/oppforinger/drammenselva/",
     });
-    this.sendPushNotification();
+
   }
 
   animateTyrifjorden = async () => {
@@ -207,12 +206,10 @@ class MapScreen extends React.Component {
   }
 
 
-  animate = async () => {
+  animate = () => {
     this.setState({
-      timer: 0
-    })
-
-    
+      timer: 0,
+    });
 
     const coordinate1 = this.state.Origin;
     const coordinate0 = this.state.Sandvika;
@@ -235,9 +232,6 @@ class MapScreen extends React.Component {
     const coordinate18 = this.state.Dale;
     const coordinate19 = this.state.Arna;
 
-
-
-
     this.animateDrammen()
       .then(() => {
         this.animateTyrifjorden();
@@ -249,10 +243,12 @@ class MapScreen extends React.Component {
         this.animateBergen();
       });
 
-
-    coordinate0.timing(newCoordinates[0]).start();
+    coordinate0.timing(newCoordinates[0]).start()
     coordinate1.timing(newCoordinates[1]).start();
-    coordinate2.timing(newCoordinates[2]).start();
+    coordinate2.timing(newCoordinates[2]).start(() => {
+      this.setState({ timer: 4 })
+      this.sendPushNotification()
+    });
     coordinate3.timing(newCoordinates[3]).start();
     coordinate4.timing(newCoordinates[4]).start();
     coordinate5.timing(newCoordinates[5]).start();
@@ -270,6 +266,7 @@ class MapScreen extends React.Component {
     coordinate17.timing(newCoordinates[17]).start();
     coordinate18.timing(newCoordinates[18]).start();
     coordinate19.timing(newCoordinates[19]).start();
+   
   }
 
   componentDidMount() {
@@ -329,17 +326,6 @@ class MapScreen extends React.Component {
       _displayInForeground: true,
     };
     
-    // const response = await fetch("https://exp.host/--/api/v2/push/send", {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Accept-encoding": "gzip, deflate",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(message),
-
-      
-    // });
 
     const schedulingOptions = {
       time: new Date().getTime()+(this.state.timer*1000)
@@ -365,12 +351,15 @@ class MapScreen extends React.Component {
             longitude: 10.757933,
           }}
         >
-          <Marker coordinate={newCoordinates[0]} />
+          <Marker coordinate={coordinates[0]} />
           <Marker coordinate={coordinates[1]} />
 
           <MapView.Marker.Animated
             coordinate={this.state.Origin}
             image={require("../assets/images/train.png")}
+            ref={(marker) => {
+              this.marker = marker;
+            }}
           />
           <MapView.Marker.Animated
             coordinate={this.state.Sandvika}
