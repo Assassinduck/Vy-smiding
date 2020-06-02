@@ -16,6 +16,8 @@ import { ProviderPropType, Marker, AnimatedRegion } from "react-native-maps";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
+import newCoordinates from "../constants/animate"
+import animate from "./TestAnim"
 
 const coordinates = [
   {
@@ -31,10 +33,9 @@ const coordinates = [
 const GOOGLE_MAPS_APIKEY = "AIzaSyB3ReUNZCJIJnlpNT-1UchzSaX5gpJdGT0";
 
 class MapScreen extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
+
+    state = {
       Origin: new AnimatedRegion({
         latitude: 59.911491,
         longitude: 10.757933,
@@ -167,30 +168,64 @@ class MapScreen extends React.Component {
       timer: 0,
       link: "",
     };
+     
   }
 
-  animate() {
+  animateDrammen = async () => {
+    this.setState({
+      body:
+        "ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer",
+      timer: 14,
+      link: "https://www.drammen.no/oppforinger/drammenselva/",
+    });
+        this.sendPushNotification()
+  }
+
+
+  animateTyrifjorden = async () => {
+    this.setState({
+      
+      body:"Til høyre ligger tyrifjorden. Trykk her får å lære mer",
+      timer:27,
+      link: "https://snl.no/Tyrifjorden",
+
+    })
+        this.sendPushNotification()
+  }
+  
+animateFinse = async () => {
+  this.setState({
+    body:"Vi er nå på det høyeste punktet på reisen!",
+    timer:65,
+    link:"https://www.visitnorway.com/places-to-go/eastern-norway/geilo/listings-geilo/finse-1222/175947/"
+  })
+      this.sendPushNotification();
+  }
+
+animateBergen = async () => {
+  this.setState({
+      body:"Nå begynner vi å nærme oss Bergen, gjør klar for avstigning, trykk her for å bestille taxi",
+    timer:95,
+    link:"https://www.bergentaxi.no/bestill-taxi/",
+  })
+      this.sendPushNotification();
+
+  }
+
+
+  animate = () => {
     this.state.timer=0
 
-    this.state.body="ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer";
-    this.state.timer=14;
-    this.state.link="https://www.drammen.no/oppforinger/drammenselva/"
-    this.sendPushNotification();
 
-    this.state.body="Til høyre ligger tyrifjorden. Trykk her får å lære mer";
-    this.state.timer=27;
-    this.state.link="https://snl.no/Tyrifjorden";
-    this.sendPushNotification();
 
-    this.state.body="Vi er nå på det høyeste punktet på reisen!";
-    this.state.timer=65;
-    this.state.link="https://www.visitnorway.com/places-to-go/eastern-norway/geilo/listings-geilo/finse-1222/175947/"
-    this.sendPushNotification();
 
-    this.state.body="Nå begynner vi å nærme oss Bergen, gjør klar for avstigning, trykk her for å bestille taxi"
-    this.state.timer=95;
-    this.state.link="https://www.bergentaxi.no/bestill-taxi/"
-    this.sendPushNotification();
+
+
+  animate = () => {
+    this.setState({
+      timer: 0,
+    });
+    
 
     const coordinate1 = this.state.Origin;
     const coordinate0 = this.state.Sandvika;
@@ -214,6 +249,38 @@ class MapScreen extends React.Component {
     const coordinate19 = this.state.Arna;
     const coordinate20 = this.state.Bergen;
 
+    this.animateDrammen()
+      .then(() => {
+        this.animateTyrifjorden();
+      })
+      .then(() => {
+        this.animateFinse();
+      })
+      .then(() => {
+        this.animateBergen();
+      });
+
+    coordinate0.timing(newCoordinates[0]).start()
+    coordinate1.timing(newCoordinates[1]).start();
+    coordinate2.timing(newCoordinates[2]).start();
+    coordinate3.timing(newCoordinates[3]).start();
+    coordinate4.timing(newCoordinates[4]).start();
+    coordinate5.timing(newCoordinates[5]).start();
+    coordinate6.timing(newCoordinates[6]).start();
+    coordinate7.timing(newCoordinates[7]).start();
+    coordinate8.timing(newCoordinates[8]).start();
+    coordinate9.timing(newCoordinates[9]).start();
+    coordinate10.timing(newCoordinates[10]).start();
+    coordinate11.timing(newCoordinates[11]).start();
+    coordinate12.timing(newCoordinates[12]).start();
+    coordinate13.timing(newCoordinates[13]).start();
+    coordinate14.timing(newCoordinates[14]).start();
+    coordinate15.timing(newCoordinates[15]).start();
+    coordinate16.timing(newCoordinates[16]).start();
+    coordinate17.timing(newCoordinates[17]).start();
+    coordinate18.timing(newCoordinates[18]).start();
+    coordinate19.timing(newCoordinates[19]).start();
+   
     const newCoordinate = [
       /*Asker */
       {
@@ -475,17 +542,6 @@ class MapScreen extends React.Component {
       _displayInForeground: true,
     };
     
-    // const response = await fetch("https://exp.host/--/api/v2/push/send", {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Accept-encoding": "gzip, deflate",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(message),
-
-      
-    // });
 
     const schedulingOptions = {
       time: new Date().getTime()+(this.state.timer*1000)
@@ -517,6 +573,9 @@ class MapScreen extends React.Component {
           <MapView.Marker.Animated
             coordinate={this.state.Origin}
             image={require("../assets/images/train.png")}
+            ref={(marker) => {
+              this.marker = marker;
+            }}
           />
           <MapView.Marker.Animated
             coordinate={this.state.Sandvika}
