@@ -16,8 +16,8 @@ import { ProviderPropType, Marker, AnimatedRegion } from "react-native-maps";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
-import newCoordinates from "../constants/animate"
-import animate from "./TestAnim"
+import firebase from "@firebase/app";
+import "@firebase/firestore";
 
 const coordinates = [
   {
@@ -485,6 +485,9 @@ class MapScreen extends React.Component {
 
     componentDidMount = () => {
       this.registerForPushNotificationsAsync();
+      const ref = firebase.firestore()
+
+      console.log(ref);
 
       this._notificationSubscription = Notifications.addListener(
         this._handleNotification

@@ -14,6 +14,7 @@ import shareScreen from "./screens/ShareScreen";
 import animations from "./screens/TestAnim"
 
 const Stack = createStackNavigator();
+import firebase from "./firebase"
 
 export default function App(props) {
   const isLoadingComplete = useCachedResources();
