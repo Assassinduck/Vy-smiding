@@ -1,6 +1,6 @@
 //const firebase = require("firebase");
 // Required for side-effects
-require("firebase/firestore");
+
 
 
 
@@ -28,6 +28,5 @@ import "firebase/firestore"
 
 
 
-export const firestore = firebase.firestore()
 
 export default firebase

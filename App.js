@@ -15,7 +15,18 @@ import shareScreen from "./screens/ShareScreen";
 import animations from "./screens/TestAnim"
 
 const Stack = createStackNavigator();
-import firebase from "./firebase"
+
+import { decode, encode } from "base-64";
+if (!global.btoa) {
+  global.btoa = encode;
+}
+if (!global.atob) {
+  global.atob = decode;
+}
+
+
+
+
 
 export default function App(props) {
   const isLoadingComplete = useCachedResources();

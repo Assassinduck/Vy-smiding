@@ -12,7 +12,14 @@ import {
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
-import * as firebase from '../firebase';
+import * as firebaseCreate from '../firebase';
+ const firebase = require("firebase");
+ // Required for side-effects
+ require("firebase/firestore");
+
+
+let db = firebase.firestore();
+     
 
 class TravelScreen extends Component {
   state = {
@@ -38,7 +45,10 @@ class TravelScreen extends Component {
 
   componentDidMount() {
     this.registerForPushNotificationsAsync();
-    //const db = firebase.();
+    
+
+    
+
 
     
 
@@ -110,6 +120,19 @@ class TravelScreen extends Component {
     this.setState({ notification: notification });
   };
 
+
+  readData = async () => {
+    db.collection("Coordinates")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          console.log(`${doc.id} => ${doc.data()}`);
+        });
+      });
+
+
+  }
+
   render() {
     const { navigation } = this.props;
     return (
@@ -180,6 +203,11 @@ class TravelScreen extends Component {
             value={this.state.isEnabledArrival}
             style={styles.switch}
           />
+          <Button
+            onPress={() => this.readData()}
+            title="readData"
+
+            ></Button>
         </View>
       </View>
     );
