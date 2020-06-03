@@ -37,7 +37,7 @@ const db= firebase.firestore();
 
 const GOOGLE_MAPS_APIKEY = "AIzaSyB3ReUNZCJIJnlpNT-1UchzSaX5gpJdGT0";
 
-      const coordinateData = [];
+const coordinateData = [];
 
 
 
@@ -182,8 +182,7 @@ class MapScreen extends React.Component {
 
   animateDrammen = async () => {
     this.setState({
-      body:
-        "ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer",
+      body: "ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer",
       timer: 14,
       link: "https://www.drammen.no/oppforinger/drammenselva/",
     });
@@ -222,13 +221,13 @@ class MapScreen extends React.Component {
   }
 
     animate = () => {
-      this.setState({
-        timer: 0,
-      });
+      // this.setState({
+      //   timer: 0,
+      // });
     
 
-      const coordinate1 = this.state.Origin;
-      const coordinate0 = this.state.Sandvika;
+      const coordinate0 = this.state.Origin;
+      const coordinate1 = this.state.Sandvika;
       const coordinate2 = this.state.Asker;
       const coordinate3 = this.state.Drammen;
       const coordinate4 = this.state.Hokksund;
@@ -249,7 +248,7 @@ class MapScreen extends React.Component {
       const coordinate19 = this.state.Arna;
       const coordinate20 = this.state.Bergen;
 
-      this.animateDrammen()
+      /*this.animateDrammen()
         .then(() => {
           this.animateTyrifjorden();
         })
@@ -258,8 +257,9 @@ class MapScreen extends React.Component {
         })
         .then(() => {
           this.animateBergen();
-        });
+        });*/
 
+        console.log(coordinateData[0].latitude)
       coordinate0.timing(coordinateData[0]).start();
       coordinate1.timing(coordinateData[1]).start();
       coordinate2.timing(coordinateData[2]).start();
@@ -286,17 +286,27 @@ class MapScreen extends React.Component {
       this.registerForPushNotificationsAsync();
 
 
-    db.collection('Coordinates').get()
+    db.collection('Coordinates').orderBy('delay', 'asc').get()
     .then(snapshot => {
       snapshot.forEach(doc => {
-
+        console.log(doc.data())
         coordinateData.push(doc.data());
       });
-      console.log("data" + coordinateData);
+      //console.log("data " + coordinateData);
+      for(var i=0; i<coordinateData.length; i++){
+        console.log(i)
+        console.log("latitude: " +coordinateData[i].latitude)
+        console.log("Longitude: " + coordinateData[i].longitude)
+        console.log("Duration: "+coordinateData[i].duration)
+        console.log("Delay: "+coordinateData[i].delay)
+        console.log("  ")
+      }
     })
     .catch(error => {
       console.log('Error!', error);
     })
+
+    
 
 
       //console.log(db.collection('Coordinates').get());
