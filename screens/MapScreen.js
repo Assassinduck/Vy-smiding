@@ -176,13 +176,14 @@ class MapScreen extends React.Component {
     body: "",
     timer: 0,
     link: "",
+    dataSource: []
   };
      
   
 
   animateDrammen = async () => {
     this.setState({
-      body: "ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer",
+      body:"ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer",
       timer: 14,
       link: "https://www.drammen.no/oppforinger/drammenselva/",
     });
@@ -220,10 +221,10 @@ class MapScreen extends React.Component {
 
   }
 
-    animate = () => {
-      // this.setState({
-      //   timer: 0,
-      // });
+    animate = async () => {
+      this.setState({
+        timer: 0,
+      });
     
 
       const coordinate0 = this.state.Origin;
@@ -259,56 +260,47 @@ class MapScreen extends React.Component {
           this.animateBergen();
         });*/
 
-        console.log(coordinateData[0].latitude)
-      coordinate0.timing(coordinateData[0]).start();
-      coordinate1.timing(coordinateData[1]).start();
-      coordinate2.timing(coordinateData[2]).start();
-      coordinate3.timing(coordinateData[3]).start();
-      coordinate4.timing(coordinateData[4]).start();
-      coordinate5.timing(coordinateData[5]).start();
-      coordinate6.timing(coordinateData[6]).start();
-      coordinate7.timing(coordinateData[7]).start();
-      coordinate8.timing(coordinateData[8]).start();
-      coordinate9.timing(coordinateData[9]).start();
-      coordinate10.timing(coordinateData[10]).start();
-      coordinate11.timing(coordinateData[11]).start();
-      coordinate12.timing(coordinateData[12]).start();
-      coordinate13.timing(coordinateData[13]).start();
-      coordinate14.timing(coordinateData[14]).start();
-      coordinate15.timing(coordinateData[15]).start();
-      coordinate16.timing(coordinateData[16]).start();
-      coordinate17.timing(coordinateData[17]).start();
-      coordinate18.timing(coordinateData[18]).start();
-      coordinate19.timing(coordinateData[19]).start();
+      coordinate0.timing(coordinateData[1]).start();
+      coordinate1.timing(coordinateData[2]).start();
+      coordinate2.timing(coordinateData[3]).start();
+      coordinate3.timing(coordinateData[4]).start();
+      coordinate4.timing(coordinateData[5]).start();
+      coordinate5.timing(coordinateData[6]).start();
+      coordinate6.timing(coordinateData[7]).start();
+      coordinate7.timing(coordinateData[8]).start();
+      coordinate8.timing(coordinateData[9]).start();
+      coordinate9.timing(coordinateData[10]).start();
+      coordinate10.timing(coordinateData[11]).start();
+      coordinate11.timing(coordinateData[12]).start();
+      coordinate12.timing(coordinateData[13]).start();
+      coordinate13.timing(coordinateData[14]).start();
+      coordinate14.timing(coordinateData[15]).start();
+      coordinate15.timing(coordinateData[16]).start();
+      coordinate16.timing(coordinateData[17]).start();
+      coordinate17.timing(coordinateData[18]).start();
+      coordinate18.timing(coordinateData[19]).start();
+
     }
 
     componentDidMount = () => {
       this.registerForPushNotificationsAsync();
 
+   if (!coordinateData.length) {
+     db.collection("Coordinates")
+       .orderBy("Delay", "asc")
+       .get()
+       .then((snapshot) => {
+         snapshot.forEach((doc) => {
+           coordinateData.push(doc.data());
+         });
+         console.log("data" + coordinateData);
+       })
+       .catch((error) => {
+         console.log("Error!", error);
+       });
+   }
 
-    db.collection('Coordinates').orderBy('delay', 'asc').get()
-    .then(snapshot => {
-      snapshot.forEach(doc => {
-        console.log(doc.data())
-        coordinateData.push(doc.data());
-      });
-      //console.log("data " + coordinateData);
-      for(var i=0; i<coordinateData.length; i++){
-        console.log(i)
-        console.log("latitude: " +coordinateData[i].latitude)
-        console.log("Longitude: " + coordinateData[i].longitude)
-        console.log("Duration: "+coordinateData[i].duration)
-        console.log("Delay: "+coordinateData[i].delay)
-        console.log("  ")
-      }
-    })
-    .catch(error => {
-      console.log('Error!', error);
-    })
-
-    
-
-
+      console.log(coordinateData[1])
       //console.log(db.collection('Coordinates').get());
 
       this._notificationSubscription = Notifications.addListener(
