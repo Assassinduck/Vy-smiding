@@ -116,27 +116,6 @@ class TravelScreen extends Component {
   };
 
 
-  readData = () => {
-
-    var docRef = db.collection("Coordinates").doc("Gol");
-
-  docRef
-    .get()
-    .then(function (doc) {
-      if (doc.exists) {
-        console.log("Document data:", doc.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    })
-    .catch(function (error) {
-      console.log("Error getting document:", error);
-    });
-
-
-  }
-
   render() {
     const { navigation } = this.props;
     return (
@@ -207,11 +186,6 @@ class TravelScreen extends Component {
             value={this.state.isEnabledArrival}
             style={styles.switch}
           />
-          <Button
-            onPress={() => this.readData()}
-            title="readData"
-
-            ></Button>
         </View>
       </View>
     );
