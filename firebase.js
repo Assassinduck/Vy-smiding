@@ -23,8 +23,12 @@ import "firebase/firestore"
     firebase.initializeApp(firebaseConfig);
     console.log("init firebase");
     
-  }
+}
+  
 
+
+
+  
 
 
 

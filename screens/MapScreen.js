@@ -16,10 +16,11 @@ import { ProviderPropType, Marker, AnimatedRegion } from "react-native-maps";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
-import firebase from "../firebase";
-import firestore from "@firebase/app"
-import "@firebase/firestore";
-import * as firebases from '../firebase';
+import * as firebaseCreate from "../firebase";
+const firebase = require("firebase");
+// Required for side-effects
+require("firebase/firestore");
+
 
 const coordinates = [
   {
@@ -35,6 +36,8 @@ const coordinates = [
 const db= firebase.firestore();
 
 const GOOGLE_MAPS_APIKEY = "AIzaSyB3ReUNZCJIJnlpNT-1UchzSaX5gpJdGT0";
+
+      const coordinateData = [];
 
 
 
@@ -257,246 +260,39 @@ class MapScreen extends React.Component {
           this.animateBergen();
         });
 
-      coordinate0.timing(newCoordinates[0]).start()
-      coordinate1.timing(newCoordinates[1]).start();
-      coordinate2.timing(newCoordinates[2]).start();
-      coordinate3.timing(newCoordinates[3]).start();
-      coordinate4.timing(newCoordinates[4]).start();
-      coordinate5.timing(newCoordinates[5]).start();
-      coordinate6.timing(newCoordinates[6]).start();
-      coordinate7.timing(newCoordinates[7]).start();
-      coordinate8.timing(newCoordinates[8]).start();
-      coordinate9.timing(newCoordinates[9]).start();
-      coordinate10.timing(newCoordinates[10]).start();
-      coordinate11.timing(newCoordinates[11]).start();
-      coordinate12.timing(newCoordinates[12]).start();
-      coordinate13.timing(newCoordinates[13]).start();
-      coordinate14.timing(newCoordinates[14]).start();
-      coordinate15.timing(newCoordinates[15]).start();
-      coordinate16.timing(newCoordinates[16]).start();
-      coordinate17.timing(newCoordinates[17]).start();
-      coordinate18.timing(newCoordinates[18]).start();
-      coordinate19.timing(newCoordinates[19]).start();
-   
-      const newCoordinate = [
-        /*Asker */
-        {
-          latitude: 59.834079,
-          longitude: 10.435004,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 5000,
-        },
-        /*Sandvika */
-        {
-          latitude: 59.892806,
-          longitude: 10.526087,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-        },
-        /*Drammen */
-        {
-          latitude: 59.740068,
-          longitude: 10.20486,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 10000,
-        },
-        /*Hokksund */
-        {
-          latitude: 59.767305,
-          longitude: 9.910776,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 15000,
-        },
-        /*Vikersund*/
-        {
-          latitude: 59.969203,
-          longitude: 9.998008,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 20000,
-        },
-        /*Hønefoss*/
-        {
-          latitude: 60.169167,
-          longitude: 10.24957,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 25000,
-        },
-        /*Flå*/
-        {
-          latitude: 60.432071,
-          longitude: 9.473048,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 30000,
-        },
-        /*Nes*/
-        {
-          latitude: 60.576714,
-          longitude: 9.11325,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 35000,
-        },
-        /*Gol*/
-        {
-          latitude: 60.699042,
-          longitude: 8.97049,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 40000,
-        },
-        /*Ål*/
-        {
-          latitude: 60.626526,
-          longitude: 8.561386,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 45000,
-        },
-        /*Geilo*/
-        {
-          latitude: 60.534628,
-          longitude: 8.206693,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 50000,
-        },
-        /*Ustaoset*/
-        {
-          latitude: 60.496114,
-          longitude: 8.045866,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 55000,
-        },
-        /* Haugastøl*/
-        {
-          latitude: 60.511394,
-          longitude: 7.869734,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 60000,
-        },
-        /* Finse*/
-        {
-          latitude: 60.601945,
-          longitude: 7.503767,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 65000,
-        },
-        /* Hallingskeid*/
-        {
-          latitude: 60.668026,
-          longitude: 7.252333,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 70000,
-        },
-        /* Myrdal*/
-        {
-          latitude: 60.743504,
-          longitude: 7.129848,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 75000,
-        },
-        /* Voss*/
-        {
-          latitude: 60.629252,
-          longitude: 6.410842,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 80000,
-        },
-        /* Dale*/
-        {
-          latitude: 60.586441,
-          longitude: 5.815096,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 85000,
-        },
-        /* Arna */
-        {
-          latitude: 60.420482,
-          longitude: 5.467597,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 90000,
-        },
-        /* Bergen */
-        {
-          latitude: 60.390022,
-          longitude: 5.334514,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-          duration: 5000,
-          delay: 95000,
-        },
-      ];
-
-      coordinate0.timing(newCoordinate[0]).start();
-      coordinate1.timing(newCoordinate[1]).start();
-      coordinate2.timing(newCoordinate[2]).start();
-      coordinate3.timing(newCoordinate[3]).start();
-      coordinate4.timing(newCoordinate[4]).start();
-      coordinate5.timing(newCoordinate[5]).start();
-      coordinate6.timing(newCoordinate[6]).start();
-      coordinate7.timing(newCoordinate[7]).start();
-      coordinate8.timing(newCoordinate[8]).start();
-      coordinate9.timing(newCoordinate[9]).start();
-      coordinate10.timing(newCoordinate[10]).start();
-      coordinate11.timing(newCoordinate[11]).start();
-      coordinate12.timing(newCoordinate[12]).start();
-      coordinate13.timing(newCoordinate[13]).start();
-      coordinate14.timing(newCoordinate[14]).start();
-      coordinate15.timing(newCoordinate[15]).start();
-      coordinate16.timing(newCoordinate[16]).start();
-      coordinate17.timing(newCoordinate[17]).start();
-      coordinate18.timing(newCoordinate[18]).start();
-      coordinate19.timing(newCoordinate[19]).start();
+      coordinate0.timing(coordinateData[0]).start();
+      coordinate1.timing(coordinateData[1]).start();
+      coordinate2.timing(coordinateData[2]).start();
+      coordinate3.timing(coordinateData[3]).start();
+      coordinate4.timing(coordinateData[4]).start();
+      coordinate5.timing(coordinateData[5]).start();
+      coordinate6.timing(coordinateData[6]).start();
+      coordinate7.timing(coordinateData[7]).start();
+      coordinate8.timing(coordinateData[8]).start();
+      coordinate9.timing(coordinateData[9]).start();
+      coordinate10.timing(coordinateData[10]).start();
+      coordinate11.timing(coordinateData[11]).start();
+      coordinate12.timing(coordinateData[12]).start();
+      coordinate13.timing(coordinateData[13]).start();
+      coordinate14.timing(coordinateData[14]).start();
+      coordinate15.timing(coordinateData[15]).start();
+      coordinate16.timing(coordinateData[16]).start();
+      coordinate17.timing(coordinateData[17]).start();
+      coordinate18.timing(coordinateData[18]).start();
+      coordinate19.timing(coordinateData[19]).start();
     }
 
     componentDidMount = () => {
       this.registerForPushNotificationsAsync();
-      //console.log(db)
-      var wholeData = []
+
 
     db.collection('Coordinates').get()
     .then(snapshot => {
       snapshot.forEach(doc => {
-        // console.log(doc.id, '=>', doc.data());
-        // console.log(doc.data().name + doc.data().age);
-        // console.log(doc.data());
-        wholeData.push(doc.data())
+
+        coordinateData.push(doc.data());
       });
-      console.log("data" + wholeData)
-      res.send(wholeData)
+      console.log("data" + coordinateData);
     })
     .catch(error => {
       console.log('Error!', error);
