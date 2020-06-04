@@ -178,52 +178,16 @@ class MapScreen extends React.Component {
     link: "",
   };
      
-  
-
-  animateDrammen = async () => {
-    this.setState({
-      body: "ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer",
-      timer: 14,
-      link: "https://www.drammen.no/oppforinger/drammenselva/",
-    });
-    this.sendPushNotification()
-  }
-
-
-  animateTyrifjorden = async () => {
-    this.setState({
-      
-      body: "Til høyre ligger tyrifjorden. Trykk her får å lære mer",
-      timer: 27,
-      link: "https://snl.no/Tyrifjorden",
-
-    })
-    this.sendPushNotification()
-  }
-  
-  animateFinse = async () => {
-    this.setState({
-      body: "Vi er nå på det høyeste punktet på reisen!",
-      timer: 65,
-      link: "https://www.visitnorway.com/places-to-go/eastern-norway/geilo/listings-geilo/finse-1222/175947/"
-    })
-    this.sendPushNotification();
-  }
-
-  animateBergen = async () => {
-    this.setState({
-      body: "Nå begynner vi å nærme oss Bergen, gjør klar for avstigning, trykk her for å bestille taxi",
-      timer: 95,
-      link: "https://www.bergentaxi.no/bestill-taxi/",
-    })
-    this.sendPushNotification();
-
-  }
 
     animate = () => {
-      // this.setState({
-      //   timer: 0,
-      // });
+     
+      this.animateDrammen()
+        
+      this.animateTyrifjorden();
+   
+      this.animateFinse();
+    
+      this.animateBergen();
     
 
       const coordinate0 = this.state.Origin;
@@ -248,16 +212,8 @@ class MapScreen extends React.Component {
       const coordinate19 = this.state.Arna;
       const coordinate20 = this.state.Bergen;
 
-      /*this.animateDrammen()
-        .then(() => {
-          this.animateTyrifjorden();
-        })
-        .then(() => {
-          this.animateFinse();
-        })
-        .then(() => {
-          this.animateBergen();
-        });*/
+     
+        
 
         console.log(coordinateData[0].latitude)
       coordinate0.timing(coordinateData[0]).start();
@@ -292,26 +248,13 @@ class MapScreen extends React.Component {
         console.log(doc.data())
         coordinateData.push(doc.data());
       });
-      //console.log("data " + coordinateData);
-      /*for(var i=0; i<coordinateData.length; i++){
-        console.log(i)
-        console.log("latitude: " +coordinateData[i].latitude)
-        console.log("Longitude: " + coordinateData[i].longitude)
-        console.log("Duration: "+coordinateData[i].duration)
-        console.log("Delay: "+coordinateData[i].delay)
-        console.log("  ")
-      }*/
+     
     })
     .catch(error => {
       console.log('Error!', error);
     })
-
     
-
-
-      //console.log(db.collection('Coordinates').get());
-
-      this._notificationSubscription = Notifications.addListener(
+    this._notificationSubscription = Notifications.addListener(
         this._handleNotification
       );
     }
@@ -350,11 +293,7 @@ class MapScreen extends React.Component {
     };
 
     sendPushNotification = async () => {
-      // if(mounted){
-      // this.setState((prevState => {
-      //   isEnabled: !prevState.isEnabled
-      // }))}
-      const message = {
+            const message = {
         to: this.state.expoPushToken,
         sound: "default",
         title: "VY",
@@ -372,11 +311,78 @@ class MapScreen extends React.Component {
       Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
     }
 
+    animateDrammen = async () => {
+      const message = {
+        to: this.state.expoPushToken,
+        sound: "default",
+        title: "VY",
+        body: "ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer",
+        link: "https://www.drammen.no/oppforinger/drammenselva/",
+        channelId: "android",
+        data: { data: "goes here" },
+        _displayInForeground: true,
+      };
+      const schedulingOptions = {
+        time: new Date().getTime() + 14000
+      };
+      Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
+    }
+    animateTyrifjorden = async () => {
+      const message = {
+        to: this.state.expoPushToken,
+        sound: "default",
+        title: "VY",
+        body: "Til høyre ligger tyrifjorden. Trykk her får å lære mer",
+        link: "https://snl.no/Tyrifjorden",
+        channelId: "android",
+        data: { data: "goes here" },
+        _displayInForeground: true,
+      };
+      const schedulingOptions = {
+        time: new Date().getTime() + 27000
+      };
+      Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
+    }
+    animateFinse = async () => {
+      const message = {
+        to: this.state.expoPushToken,
+        sound: "default",
+        title: "VY",
+        body: "Vi er nå på det høyeste punktet på reisen!",
+        link: "https://www.visitnorway.com/places-to-go/eastern-norway/geilo/listings-geilo/finse-1222/175947/",
+        channelId: "android",
+        data: { data: "goes here" },
+        _displayInForeground: true,
+      };
+      const schedulingOptions = {
+        time: new Date().getTime() + 35000
+      };
+      Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
+    }
+    animateBergen = async () => {
+      const message = {
+        to: this.state.expoPushToken,
+        sound: "default",
+        title: "VY",
+        body: "Nå begynner vi å nærme oss Bergen, gjør klar for avstigning, trykk her for å bestille taxi",
+        link: "https://www.bergentaxi.no/bestill-taxi/",
+        channelId: "android",
+        data: { data: "goes here" },
+        _displayInForeground: true,
+      };
+      const schedulingOptions = {
+        time: new Date().getTime() + 43000
+      };
+      Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
+    }
+
     _handleNotification = (notification) => {
       Vibration.vibrate();
       console.log(notification);
       this.setState({ notification: notification });
     };
+
+
   
     render() {
       return (
@@ -499,10 +505,6 @@ class MapScreen extends React.Component {
       );
     }
   }
-
-// AnimatedMarkers.propTypes = {
-//   provider: ProviderPropType,
-// };
 
 MapScreen.propTypes = {
   provider: ProviderPropType,
