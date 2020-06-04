@@ -260,14 +260,14 @@ class MapScreen extends React.Component {
         coordinateData.push(doc.data());
       });
       //console.log("data " + coordinateData);
-      for(var i=0; i<coordinateData.length; i++){
+      /*for(var i=0; i<coordinateData.length; i++){
         console.log(i)
         console.log("latitude: " +coordinateData[i].latitude)
         console.log("Longitude: " + coordinateData[i].longitude)
         console.log("Duration: "+coordinateData[i].duration)
         console.log("Delay: "+coordinateData[i].delay)
         console.log("  ")
-      }
+      }*/
     })
     .catch(error => {
       console.log('Error!', error);
