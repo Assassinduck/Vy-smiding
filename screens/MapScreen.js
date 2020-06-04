@@ -39,6 +39,12 @@ const GOOGLE_MAPS_APIKEY = "AIzaSyB3ReUNZCJIJnlpNT-1UchzSaX5gpJdGT0";
 
 const coordinateData = [];
 
+const notificationData = [];
+
+var body ="";
+var timer =0;
+var link ="";
+
 
 
 class MapScreen extends React.Component {
@@ -173,52 +179,9 @@ class MapScreen extends React.Component {
     }),
     expoPushToken: "",
     notification: {},
-    body: "",
-    timer: 0,
-    link: "",
+
   };
      
-  
-
-  animateDrammen = async () => {
-    this.setState({
-      body: "ankommer nå Drammen, med Drammenselva på høyre side. Trykk her for å lære mer",
-      timer: 14,
-      link: "https://www.drammen.no/oppforinger/drammenselva/",
-    });
-    this.sendPushNotification()
-  }
-
-
-  animateTyrifjorden = async () => {
-    this.setState({
-      
-      body: "Til høyre ligger tyrifjorden. Trykk her får å lære mer",
-      timer: 27,
-      link: "https://snl.no/Tyrifjorden",
-
-    })
-    this.sendPushNotification()
-  }
-  
-  animateFinse = async () => {
-    this.setState({
-      body: "Vi er nå på det høyeste punktet på reisen!",
-      timer: 65,
-      link: "https://www.visitnorway.com/places-to-go/eastern-norway/geilo/listings-geilo/finse-1222/175947/"
-    })
-    this.sendPushNotification();
-  }
-
-  animateBergen = async () => {
-    this.setState({
-      body: "Nå begynner vi å nærme oss Bergen, gjør klar for avstigning, trykk her for å bestille taxi",
-      timer: 95,
-      link: "https://www.bergentaxi.no/bestill-taxi/",
-    })
-    this.sendPushNotification();
-
-  }
 
     animate = () => {
       // this.setState({
@@ -248,16 +211,13 @@ class MapScreen extends React.Component {
       const coordinate19 = this.state.Arna;
       const coordinate20 = this.state.Bergen;
 
-      /*this.animateDrammen()
-        .then(() => {
-          this.animateTyrifjorden();
-        })
-        .then(() => {
-          this.animateFinse();
-        })
-        .then(() => {
-          this.animateBergen();
-        });*/
+        for(var i=0; i<notificationData.length; i++){
+          body=notificationData[i].body;
+          timer=notificationData[i].timer;
+          link=notificationData[i].link;
+
+          this.sendPushNotification();
+        }
 
         console.log(coordinateData[0].latitude)
       coordinate0.timing(coordinateData[0]).start();
@@ -285,6 +245,13 @@ class MapScreen extends React.Component {
     componentDidMount = () => {
       this.registerForPushNotificationsAsync();
 
+      db.collection('Notification').orderBy('timer', 'asc').get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          console.log(doc.data())
+          notificationData.push(doc.data())
+        })
+      })
 
     db.collection('Coordinates').orderBy('delay', 'asc').get()
     .then(snapshot => {
@@ -358,8 +325,8 @@ class MapScreen extends React.Component {
         to: this.state.expoPushToken,
         sound: "default",
         title: "VY",
-        body: this.state.body,
-        link: this.state.link,
+        body: body,
+        link: link,
         channelId: "android",
         data: { data: "goes here" },
         _displayInForeground: true,
@@ -367,7 +334,7 @@ class MapScreen extends React.Component {
     
 
       const schedulingOptions = {
-        time: new Date().getTime() + (this.state.timer * 1000)
+        time: new Date().getTime() + (timer * 1000)
       };
       Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
     }
