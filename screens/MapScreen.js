@@ -1,14 +1,12 @@
+/* Importing the necessary components */
 import React, { Component, useState } from "react";
 import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import {
   Text,
   View,
-  Switch,
-  Image,
   StyleSheet,
   TouchableOpacity,
-  Button,
   Vibration,
   Platform,
 } from "react-native";
@@ -16,7 +14,6 @@ import { ProviderPropType, Marker, AnimatedRegion } from "react-native-maps";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
-import * as firebaseCreate from "../firebase";
 const firebase = require("firebase");
 // Required for side-effects
 require("firebase/firestore");
@@ -43,7 +40,7 @@ const coordinateData = [];
 
 class MapScreen extends React.Component {
 
-
+  /* States to set to positions of the markers usen in the animation */
   state = {
     Origin: new AnimatedRegion({
       latitude: 59.911491,
@@ -180,7 +177,8 @@ class MapScreen extends React.Component {
      
     /*Function used to start the train animation and to send push notifications*/
     animate = () => {
-     
+
+      /* Calling the pushnotification functions */
       this.animateDrammen()
         
       this.animateTyrifjorden();
@@ -212,10 +210,7 @@ class MapScreen extends React.Component {
       const coordinate19 = this.state.Arna;
       const coordinate20 = this.state.Bergen;
 
-     
-        
-
-        console.log(coordinateData[0].latitude)
+      /* Animation start */
       coordinate0.timing(coordinateData[0]).start();
       coordinate1.timing(coordinateData[1]).start();
       coordinate2.timing(coordinateData[2]).start();
@@ -236,12 +231,13 @@ class MapScreen extends React.Component {
       coordinate17.timing(coordinateData[17]).start();
       coordinate18.timing(coordinateData[18]).start();
       coordinate19.timing(coordinateData[19]).start();
+      /* Animation end */
     }
 
     componentDidMount = () => {
       this.registerForPushNotificationsAsync();
 
-
+    /* Fetching the coordinate data from our firestore database */
     db.collection('Coordinates').orderBy('delay', 'asc').get()
     .then(snapshot => {
       snapshot.forEach(doc => {
@@ -258,7 +254,8 @@ class MapScreen extends React.Component {
         this._handleNotification
       );
     }
-    /*function to get a token for push notifications*/
+
+    /*function to register the device and get a token for push notifications*/
     registerForPushNotificationsAsync = async () => {
       if (Constants.isDevice) {
         const { status: existingStatus } = await Permissions.getAsync(
@@ -292,24 +289,6 @@ class MapScreen extends React.Component {
       }
     };
 
-    sendPushNotification = async () => {
-            const message = {
-        to: this.state.expoPushToken,
-        sound: "default",
-        title: "VY",
-        body: this.state.body,
-        link: this.state.link,
-        channelId: "android",
-        data: { data: "goes here" },
-        _displayInForeground: true,
-      };
-    
-
-      const schedulingOptions = {
-        time: new Date().getTime() + (this.state.timer * 1000)
-      };
-      Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
-    }
     /* Function used to send a push notification when the animation reaches drammen */
     animateDrammen = async () => {
       const message = {
@@ -327,6 +306,8 @@ class MapScreen extends React.Component {
       };
       Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
     }
+
+    /* Function used to send push notifications when the animation reaches tyrifjorden */
     animateTyrifjorden = async () => {
       const message = {
         to: this.state.expoPushToken,
@@ -343,6 +324,8 @@ class MapScreen extends React.Component {
       };
       Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
     }
+
+    /* Function used to send push notification when the animations reaches finse */
     animateFinse = async () => {
       const message = {
         to: this.state.expoPushToken,
@@ -359,6 +342,8 @@ class MapScreen extends React.Component {
       };
       Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
     }
+
+    /* Function used to send push notifications when the animation reches Bergen */
     animateBergen = async () => {
       const message = {
         to: this.state.expoPushToken,
