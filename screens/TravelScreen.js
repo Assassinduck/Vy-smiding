@@ -40,12 +40,6 @@ class TravelScreen extends Component {
 
   componentDidMount() {
     this.registerForPushNotificationsAsync();
-    
-
-    
-
-
-    
 
     this._notificationSubscription = Notifications.addListener(
       this._handleNotification
@@ -84,7 +78,7 @@ class TravelScreen extends Component {
       });
     }
   };
-
+  //Logic for sending notifications
   sendPushNotification = async () => {
     this.setState((prevState) => ({
       isEnabled: !prevState.isEnabled,
@@ -108,16 +102,17 @@ class TravelScreen extends Component {
       Notifications.scheduleLocalNotificationAsync(message, schedulingOptions);
     }
   };
-
+   //Logic for handling notifications
   _handleNotification = (notification) => {
     Vibration.vibrate();
     console.log(notification);
     this.setState({ notification: notification });
   };
 
-
   render() {
+    //Lets 
     const { navigation } = this.props;
+
     return (
       <View style={styles.container}>
         <Image
