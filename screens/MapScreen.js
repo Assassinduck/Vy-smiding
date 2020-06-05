@@ -178,7 +178,7 @@ class MapScreen extends React.Component {
     link: "",
   };
      
-
+    /*Function used to start the train animation and to send push notifications*/
     animate = () => {
      
       this.animateDrammen()
@@ -258,7 +258,7 @@ class MapScreen extends React.Component {
         this._handleNotification
       );
     }
-
+    /*function to get a token for push notifications*/
     registerForPushNotificationsAsync = async () => {
       if (Constants.isDevice) {
         const { status: existingStatus } = await Permissions.getAsync(
@@ -310,7 +310,7 @@ class MapScreen extends React.Component {
       };
       Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
     }
-
+    /* Function used to send a push notification when the animation reaches drammen */
     animateDrammen = async () => {
       const message = {
         to: this.state.expoPushToken,
