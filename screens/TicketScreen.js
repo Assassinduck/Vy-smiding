@@ -11,6 +11,7 @@ import {
 } from "react-native";
 
 class TicketScreen extends Component {
+  //Renders the ticket screen
   render() {
     return (
       <View style={styles.container}>

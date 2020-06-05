@@ -15,6 +15,7 @@ import animations from "./screens/TestAnim"
 
 const Stack = createStackNavigator();
 
+//Lets the app decompile the the base 64 encrypted data that we fetch from firebase
 import { decode, encode } from "base-64";
 if (!global.btoa) {
   global.btoa = encode;
@@ -29,7 +30,7 @@ if (!global.atob) {
 
 export default function App(props) {
   const isLoadingComplete = useCachedResources();
-
+ //Creates a stack navigation system for the app
   if (!isLoadingComplete) {
     return null;
   } else {

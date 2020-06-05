@@ -237,7 +237,7 @@ class MapScreen extends React.Component {
     componentDidMount = () => {
       this.registerForPushNotificationsAsync();
 
-    /* Fetching the coordinate data from our firestore database */
+      //Collecting coordinate data from FireStore database
     db.collection('Coordinates').orderBy('delay', 'asc').get()
     .then(snapshot => {
       snapshot.forEach(doc => {
@@ -289,7 +289,26 @@ class MapScreen extends React.Component {
       }
     };
 
-    /* Function used to send a push notification when the animation reaches drammen */
+  // Logic for sending notifications
+    sendPushNotification = async () => {
+            const message = {
+        to: this.state.expoPushToken,
+        sound: "default",
+        title: "VY",
+        body: this.state.body,
+        link: this.state.link,
+        channelId: "android",
+        data: { data: "goes here" },
+        _displayInForeground: true,
+      };
+    
+
+      const schedulingOptions = {
+        time: new Date().getTime() + (this.state.timer * 1000)
+      };
+      Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
+    }
+    /* Functions used to send a push notifications when the animation reaches a specific destination */
     animateDrammen = async () => {
       const message = {
         to: this.state.expoPushToken,
@@ -360,7 +379,7 @@ class MapScreen extends React.Component {
       };
       Notifications.scheduleLocalNotificationAsync(message, schedulingOptions)
     }
-
+    //Handling notifications and setting notification state
     _handleNotification = (notification) => {
       Vibration.vibrate();
       console.log(notification);
@@ -368,7 +387,7 @@ class MapScreen extends React.Component {
     };
 
 
-  
+  // Renders the map and the makers for the destinations 
     render() {
       return (
         <View style={styles.container}>

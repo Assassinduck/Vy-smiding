@@ -26,7 +26,7 @@ class ShareScreen extends Component {
     smsAvailable: undefined,
     inputSmsBoolean: false,
   };
-
+  //Function for sharing to other phone apps
     onShare = async () => {
     try {
       const result = await Share.share({
@@ -70,7 +70,7 @@ class ShareScreen extends Component {
 
        <Text style={styles.descriptionText}>Ønsker du å dele reiseruten med en venn?</Text>
         <Text style={styles.descriptionText}>Send reisekoden til en bekjent, slik at de får live-oppdateringer på hvor du befinner deg på reisen.</Text>
-        <Text style={styles.descriptionText}> Del din kode via:</Text>
+
         
       
 

@@ -16,6 +16,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { MonoText } from "../components/StyledText";
 
 export default function HomeScreen({ navigation }) {
+  //Renders the home screen
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
