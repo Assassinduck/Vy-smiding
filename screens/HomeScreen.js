@@ -26,7 +26,7 @@ export default function HomeScreen({ navigation }) {
             source={require("../assets/images/vy.logo.final_primary.png")}
           />
           <Text style={styles.headerText}>
-            Du vil finne dine reiser og billetter her.
+            Du vil finne dine reiser og billetter her. 
           </Text>
         </View>
         <View style={styles.head}>
