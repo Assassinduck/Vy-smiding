@@ -11,7 +11,7 @@ import LinkingConfiguration from "./navigation/LinkingConfiguration";
 import TravelScreen from "./screens/TravelScreen";
 import MapScreen from "./screens/MapScreen";
 import shareScreen from "./screens/ShareScreen";
-import animations from "./screens/TestAnim"
+
 
 const Stack = createStackNavigator();
 

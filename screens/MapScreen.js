@@ -15,6 +15,7 @@ import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 const firebase = require("firebase");
+import * as firebaseCreate from "../firebase";
 // Required for side-effects
 require("firebase/firestore");
 
