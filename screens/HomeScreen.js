@@ -13,7 +13,6 @@ import { ScrollView } from "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { MonoText } from "../components/StyledText";
 
 export default function HomeScreen({ navigation }) {
   //Renders the home screen
