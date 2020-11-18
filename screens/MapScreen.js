@@ -33,7 +33,7 @@ const coordinates = [
 
 const db = firebase.firestore();
 
-const GOOGLE_MAPS_APIKEY = "AIzaSyB3ReUNZCJIJnlpNT-1UchzSaX5gpJdGT0";
+const GOOGLE_MAPS_APIKEY = "";
 
 const coordinateData = [];
 
