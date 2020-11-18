@@ -11,7 +11,7 @@ import firebase from "firebase/app"
 import "firebase/firestore"
  
   const firebaseConfig = {
-    apiKey: "AIzaSyBb0BppJgB9n9FV4ODI2un2c0-PQ3dBSys",
+    apiKey: "",
     authDomain: "react-native-smidig.firebaseapp.com",
     databaseURL: "https://react-native-smidig.firebaseio.com",
     projectId: "react-native-smidig",
